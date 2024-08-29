@@ -13,7 +13,7 @@ const config: CapacitorConfig = {
       },
    },
    server: {
-      url: "http://localhost:4321/",
+      url: "http://192.168.1.35:4321/",
       cleartext: true,
    },
 };

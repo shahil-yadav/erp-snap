@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">erp-snap</string>
+    <string name="title_activity_main">erp-snap</string>
+    <string name="package_name">com.shahilyadav</string>
+    <string name="custom_url_scheme">com.shahilyadav</string>
+</resources>
