@@ -4,6 +4,8 @@ import { Auth } from "@/main"
 import type { QueryClient } from "@tanstack/react-query"
 import { createRootRouteWithContext, Link, Outlet } from "@tanstack/react-router"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import { ReactNode, useEffect } from "react"
+import { SafeArea } from "capacitor-plugin-safe-area"
 
 export const Route = createRootRouteWithContext<{
    queryClient: QueryClient
@@ -14,7 +16,7 @@ export const Route = createRootRouteWithContext<{
 
 function RootComponent() {
    return (
-      <main className="mt-20">
+      <SafeAreaView>
          <ScrollArea className="w-full py-5 whitespace-nowrap">
             <div className="flex gap-5">
                <Link to="/" className="[&.active]:font-bold">
@@ -42,8 +44,21 @@ function RootComponent() {
          <Outlet />
          {/* <TanStackRouterDevtools /> */}
          <ReactQueryDevtools position="bottom" />
-      </main>
+      </SafeAreaView>
    )
+}
+
+function SafeAreaView({ children }: { children?: ReactNode }) {
+   useEffect(() => {
+      ;(async function () {
+         const safeAreaData = await SafeArea.getSafeAreaInsets()
+         const { insets } = safeAreaData
+         for (const [key, value] of Object.entries(insets)) {
+            document.documentElement.style.setProperty(`--safe-area-inset-${key}`, `${value}px`)
+         }
+      })()
+   }, [])
+   return <main className="m-safe">{children}</main>
 }
 
 /*

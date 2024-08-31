@@ -38,6 +38,9 @@ importers:
       '@tanstack/react-router':
         specifier: ^1.51.2
         version: 1.51.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      capacitor-plugin-safe-area:
+        specifier: ^3.0.3
+        version: 3.0.3(@capacitor/core@6.1.2)
       cheerio:
         specifier: ^1.0.0
         version: 1.0.0
@@ -123,6 +126,9 @@ importers:
       tailwindcss:
         specifier: ^3.4.10
         version: 3.4.10
+      tailwindcss-safe-area-capacitor:
+        specifier: ^0.5.1
+        version: 0.5.1(tailwindcss@3.4.10)
       typescript:
         specifier: ^5.5.3
         version: 5.5.4
@@ -1086,6 +1092,11 @@ packages:
   caniuse-lite@1.0.30001653:
     resolution: {integrity: sha512-XGWQVB8wFQ2+9NZwZ10GxTYC5hk0Fa+q8cSkr0tgvMhYhMHP/QC+WTgrePMDBWiWc/pV+1ik82Al20XOK25Gcw==}
 
+  capacitor-plugin-safe-area@3.0.3:
+    resolution: {integrity: sha512-pDM8GQIDC9xxKLZxoO4rrshDuzZqQo6jq7Ni18cYdp2JwmLvlhTYRrvriPAicY1En59UAZ574sIvGlgUBLH3Yw==}
+    peerDependencies:
+      '@capacitor/core': ^6.0.0
+
   chalk@2.4.2:
     resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}
     engines: {node: '>=4'}
@@ -2038,6 +2049,12 @@ packages:
     resolution: {integrity: sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
+
+  tailwindcss-safe-area-capacitor@0.5.1:
+    resolution: {integrity: sha512-ieyA7odik1IKff+0QRVdKnCdmJl+XS6yXY70ALstBC87g5eNgSkCrsKyRVAatuX6jTyeRryHzaOFkqzFI/ZbTA==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      tailwindcss: ^2.0.0 || >=3.0.0
 
   tailwindcss@3.4.10:
     resolution: {integrity: sha512-KWZkVPm7yJRhdu4SRSl9d4AK2wM3a50UsvgHZO7xY77NQr2V+fIrEuoDGQcbvswWvFGbS2f6e+jC/6WJm1Dl0w==}
@@ -3205,6 +3222,10 @@ snapshots:
 
   caniuse-lite@1.0.30001653: {}
 
+  capacitor-plugin-safe-area@3.0.3(@capacitor/core@6.1.2):
+    dependencies:
+      '@capacitor/core': 6.1.2
+
   chalk@2.4.2:
     dependencies:
       ansi-styles: 3.2.1
@@ -4153,6 +4174,10 @@ snapshots:
   tailwind-merge@2.5.2: {}
 
   tailwindcss-animate@1.0.7(tailwindcss@3.4.10):
+    dependencies:
+      tailwindcss: 3.4.10
+
+  tailwindcss-safe-area-capacitor@0.5.1(tailwindcss@3.4.10):
     dependencies:
       tailwindcss: 3.4.10
 
