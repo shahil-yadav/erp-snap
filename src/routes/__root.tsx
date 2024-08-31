@@ -1,45 +1,20 @@
-import { Spinner } from "@/components/spinner";
-import { Auth } from "@/utils/auth";
-import type { QueryClient } from "@tanstack/react-query";
-import { createRootRouteWithContext, Link, Outlet, useRouterState } from "@tanstack/react-router";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
-
-/*
-const TanStackRouterDevtools =
-   process.env.NODE_ENV === "production"
-      ? () => null
-      : lazy(() =>
-           import("@tanstack/router-devtools").then((res) => ({
-              default: res.TanStackRouterDevtools,
-           }))
-        );
-*/
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
+import { Auth } from "@/main"
+import type { QueryClient } from "@tanstack/react-query"
+import { createRootRouteWithContext, Link, Outlet } from "@tanstack/react-router"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
 export const Route = createRootRouteWithContext<{
-   queryClient: QueryClient;
-   auth: Auth;
+   queryClient: QueryClient
+   auth: Auth
 }>()({
    component: RootComponent,
-   notFoundComponent: () => (
-      <div>
-         <p>This is the not found component configured on root route</p>
-         <Link to="/">Start Over</Link>
-      </div>
-   ),
-   errorComponent: () => (
-      <div className="h-screen flex flex-col justify-center items-center">
-         <p className="text-red-500">Some error occured </p>
-         <Link to="/">Start Over</Link>
-      </div>
-   ),
-});
+})
 
 function RootComponent() {
    return (
-      <main>
+      <main className="mt-20">
          <ScrollArea className="w-full py-5 whitespace-nowrap">
             <div className="flex gap-5">
                <Link to="/" className="[&.active]:font-bold">
@@ -60,21 +35,20 @@ function RootComponent() {
                <Link to="/time-table" className="[&.active]:font-bold">
                   Time table
                </Link>
-               <Link to="/react-query/posts" className="[&.active]:font-bold">
-                  Posts
-               </Link>
             </div>
             <ScrollBar className="hidden" orientation="horizontal" />
          </ScrollArea>
          <Separator className="my-2" />
          <Outlet />
-         <TanStackRouterDevtools position="bottom-right" />
-         <ReactQueryDevtools position="right" />
+         {/* <TanStackRouterDevtools /> */}
+         <ReactQueryDevtools position="bottom" />
       </main>
-   );
+   )
 }
 
+/*
 function RouterSpinner() {
    const isLoading = useRouterState({ select: (s) => s.status === "pending" });
    return <Spinner show={isLoading} />;
 }
+   */

@@ -13,8 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
 import { Route as AuthImport } from './routes/_auth'
-import { Route as IndexImport } from './routes/index'
-import { Route as ReactQueryPostsImport } from './routes/react-query/posts'
+import { Route as AuthIndexImport } from './routes/_auth.index'
 import { Route as AuthTimeTableImport } from './routes/_auth.time-table'
 import { Route as AuthProfileImport } from './routes/_auth.profile'
 import { Route as AuthNotificationsImport } from './routes/_auth.notifications'
@@ -32,14 +31,9 @@ const AuthRoute = AuthImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexRoute = IndexImport.update({
+const AuthIndexRoute = AuthIndexImport.update({
   path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ReactQueryPostsRoute = ReactQueryPostsImport.update({
-  path: '/react-query/posts',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthRoute,
 } as any)
 
 const AuthTimeTableRoute = AuthTimeTableImport.update({
@@ -66,13 +60,6 @@ const AuthAttendanceRoute = AuthAttendanceImport.update({
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
     '/_auth': {
       id: '/_auth'
       path: ''
@@ -115,12 +102,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthTimeTableImport
       parentRoute: typeof AuthImport
     }
-    '/react-query/posts': {
-      id: '/react-query/posts'
-      path: '/react-query/posts'
-      fullPath: '/react-query/posts'
-      preLoaderRoute: typeof ReactQueryPostsImport
-      parentRoute: typeof rootRoute
+    '/_auth/': {
+      id: '/_auth/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthIndexImport
+      parentRoute: typeof AuthImport
     }
   }
 }
@@ -128,15 +115,14 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  IndexRoute,
   AuthRoute: AuthRoute.addChildren({
     AuthAttendanceRoute,
     AuthNotificationsRoute,
     AuthProfileRoute,
     AuthTimeTableRoute,
+    AuthIndexRoute,
   }),
   LoginRoute,
-  ReactQueryPostsRoute,
 })
 
 /* prettier-ignore-end */
@@ -147,14 +133,9 @@ export const routeTree = rootRoute.addChildren({
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
         "/_auth",
-        "/login",
-        "/react-query/posts"
+        "/login"
       ]
-    },
-    "/": {
-      "filePath": "index.tsx"
     },
     "/_auth": {
       "filePath": "_auth.tsx",
@@ -162,7 +143,8 @@ export const routeTree = rootRoute.addChildren({
         "/_auth/attendance",
         "/_auth/notifications",
         "/_auth/profile",
-        "/_auth/time-table"
+        "/_auth/time-table",
+        "/_auth/"
       ]
     },
     "/login": {
@@ -184,8 +166,9 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_auth.time-table.tsx",
       "parent": "/_auth"
     },
-    "/react-query/posts": {
-      "filePath": "react-query/posts.tsx"
+    "/_auth/": {
+      "filePath": "_auth.index.tsx",
+      "parent": "/_auth"
     }
   }
 }
