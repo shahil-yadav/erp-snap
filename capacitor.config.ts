@@ -2,7 +2,7 @@ import type { CapacitorConfig } from "@capacitor/cli"
 
 const config: CapacitorConfig = {
    appId: "com.shahilyadav",
-   appName: "erp-snap",
+   appName: "ERP",
    webDir: "dist",
    plugins: {
       CapacitorHttp: {
@@ -12,10 +12,10 @@ const config: CapacitorConfig = {
          enabled: true,
       },
    },
-   server: {
-      url: "http://localhost:4321/",
-      cleartext: true,
-   },
+   // server: {
+   //    url: "http://192.168.1.35:4321/",
+   //    cleartext: true,
+   // },
 }
 
 export default config

@@ -1,3 +1,7 @@
+/* >>> fonts >>> */
+@import url("./fonts.css");
+/* <<< fonts <<< */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -64,14 +68,5 @@
 
    body {
       @apply bg-background text-foreground;
-   }
-}
-
-@layer utilities {
-   @font-face {
-      font-family: "Impact Regular";
-      font-style: normal;
-      font-weight: normal;
-      src: local("Impact Regular"), url("assets/fonts/impact.woff") format("woff");
    }
 }

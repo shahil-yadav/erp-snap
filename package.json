@@ -7,7 +7,9 @@
       "build": "tsc -b && vite build",
       "dev": "vite --host --port 4321",
       "lint": "eslint .",
-      "preview": "vite preview"
+      "preview": "vite preview",
+      "native:android": "pnpm build && npx cap sync && npx cap open android",
+      "native:ios": "pnpm build && npx cap sync && npx cap open ios"
    },
    "dependencies": {
       "@capacitor/android": "^6.1.2",

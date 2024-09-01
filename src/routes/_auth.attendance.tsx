@@ -144,11 +144,13 @@ function options() {
             oaa: "#content > div > div > div > div.panel-body > div:nth-child(4) > span > a > strong",
             oaaPlusAttendance: "#content > div > div > div > div.panel-body > div:nth-child(3) > span > strong",
          })
+
          const formattedData = {
             lectures: Number(scrape.lectures?.split(":").at(-1)),
             oaa: Number(scrape.oaa?.split(":").at(-1)),
             oaaPlusAttendance: Number(scrape.oaaPlusAttendance?.split(":").at(-1)),
          }
+
          return {
             oaa: formattedData.oaa,
             absent: formattedData.lectures - formattedData.oaaPlusAttendance,

@@ -9,9 +9,14 @@ import { useRouter } from "@tanstack/react-router"
 import { LogIn } from "lucide-react"
 import { FormEvent, useState } from "react"
 
+const credentials = {
+   username: 2201641720092,
+   password: "12345678",
+}
+
 export function SignIn() {
-   const [username, setUsername] = useState<number>(2201641720092)
-   const [password, setPassword] = useState<string>("12345678")
+   const [username, setUsername] = useState<number>(credentials.username)
+   const [password, setPassword] = useState<string>(credentials.password)
 
    const { mutate, isError, isPending, error } = useAuthenticateMutation()
 
@@ -26,6 +31,7 @@ export function SignIn() {
          <div className="space-y-2">
             <Input
                className={cn(isError && "border-red-500", "text-lg")}
+               defaultValue={username}
                onChange={(e) => setUsername(Number(e.target.value))}
                placeholder="Roll Number"
                role="username"
@@ -33,6 +39,7 @@ export function SignIn() {
             />
             <Input
                className={cn(isError && "border-red-500", "text-lg")}
+               defaultValue={password}
                onChange={(e) => setPassword(e.target.value)}
                placeholder="Password"
                role="password"
@@ -41,10 +48,10 @@ export function SignIn() {
          </div>
          <div className="flex w-full justify-end">
             <Button
-               disabled={isPending}
                className={cn(isPending && "disabled:bg-emerald-500 disabled:text-white")}
-               variant="outline"
+               disabled={isPending}
                type="submit"
+               variant="outline"
             >
                {isPending ? (
                   "Signing in ..."

@@ -68,6 +68,7 @@ module.exports = {
          },
          fontFamily: {
             impact: '"Impact Regular"',
+            manrope: ["Manrope", "system-ui"],
          },
       },
    },

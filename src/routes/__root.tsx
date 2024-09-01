@@ -19,7 +19,7 @@ function RootComponent() {
       <SafeAreaView>
          <ScrollArea className="w-full py-5 whitespace-nowrap">
             <div className="flex gap-5">
-               <Link to="/" className="[&.active]:font-bold">
+               <Link className="[&.active]:font-bold" to="/">
                   Home
                </Link>
                <Link to="/profile" className="[&.active]:font-bold">
