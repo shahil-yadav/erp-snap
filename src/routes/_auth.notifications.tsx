@@ -1,24 +1,27 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
-import { CapacitorHttp } from "@capacitor/core";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import * as cheerio from "cheerio";
-import { Bell } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
+import { CapacitorHttp } from "@capacitor/core"
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query"
+import { createFileRoute, Link } from "@tanstack/react-router"
+import * as cheerio from "cheerio"
+import { Bell } from "lucide-react"
 
 export const Route = createFileRoute("/_auth/notifications")({
    component: Notifications,
    loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(options()),
-});
+})
 
 function Notifications() {
-   const query = useSuspenseQuery(options());
-   const { notifications } = query.data;
+   const query = useSuspenseQuery(options())
+   const { notifications } = query.data
 
    return (
       <Card>
          <CardHeader>
+            <Link className="w-fit" to="/">
+               Back
+            </Link>
             <CardTitle className="text-xl">Notifications</CardTitle>
          </CardHeader>
          <CardContent>
@@ -35,7 +38,7 @@ function Notifications() {
             </ScrollArea>
          </CardContent>
       </Card>
-   );
+   )
 }
 
 function options() {
@@ -44,8 +47,8 @@ function options() {
       queryFn: async () => {
          const response = await CapacitorHttp.get({
             url: "https://erp.psit.ac.in/Student",
-         });
-         const $ = cheerio.load(response.data);
+         })
+         const $ = cheerio.load(response.data)
          const data = $.extract({
             notifications: [
                {
@@ -59,8 +62,8 @@ function options() {
                   },
                },
             ],
-         });
-         return data;
+         })
+         return data
       },
-   });
+   })
 }

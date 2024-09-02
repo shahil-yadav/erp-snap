@@ -1,11 +1,12 @@
+import { Auth } from "@/components/auth/utils/types"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
-import { Auth } from "@/main"
+import { Toaster } from "@/components/ui/toaster"
 import type { QueryClient } from "@tanstack/react-query"
-import { createRootRouteWithContext, Link, Outlet } from "@tanstack/react-router"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import { ReactNode, useEffect } from "react"
+import { createRootRouteWithContext, Link, Outlet } from "@tanstack/react-router"
 import { SafeArea } from "capacitor-plugin-safe-area"
+import { ReactNode, useEffect } from "react"
 
 export const Route = createRootRouteWithContext<{
    queryClient: QueryClient
@@ -17,33 +18,22 @@ export const Route = createRootRouteWithContext<{
 function RootComponent() {
    return (
       <SafeAreaView>
-         <ScrollArea className="w-full py-5 whitespace-nowrap">
-            <div className="flex gap-5">
-               <Link className="[&.active]:font-bold" to="/">
-                  Home
-               </Link>
-               <Link to="/profile" className="[&.active]:font-bold">
-                  Profile
-               </Link>
-               <Link to="/login" className="[&.active]:font-bold">
-                  Login
-               </Link>
-               <Link to="/notifications" className="[&.active]:font-bold">
-                  Notifications
-               </Link>
-               <Link to="/attendance" className="[&.active]:font-bold">
-                  Attendance
-               </Link>
-               <Link to="/time-table" className="[&.active]:font-bold">
-                  Time table
-               </Link>
-            </div>
-            <ScrollBar className="hidden" orientation="horizontal" />
-         </ScrollArea>
-         <Separator className="my-2" />
+         {/* <Separator className="my-2" /> */}
+         <nav className="flex my-5 justify-between">
+            <Link to="/">
+               <div className="flex">
+                  <h1 className="font-impact text-5xl">ERP PSIT</h1>
+                  <h2 className="text-xs -m-[2px] self-end">Unofficial</h2>
+               </div>
+            </Link>
+            <Link to="/login">
+               <img className="size-12" src="images/avatar.png" alt="Avatar" />
+            </Link>
+         </nav>
          <Outlet />
          {/* <TanStackRouterDevtools /> */}
          <ReactQueryDevtools position="bottom" />
+         <Toaster />
       </SafeAreaView>
    )
 }
@@ -58,7 +48,7 @@ function SafeAreaView({ children }: { children?: ReactNode }) {
          }
       })()
    }, [])
-   return <main className="m-safe">{children}</main>
+   return <main className="m-safe px-5 py-2 font-manrope">{children}</main>
 }
 
 /*

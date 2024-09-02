@@ -1,5 +1,5 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, Link } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/_auth/")({
    component: Homepage,
@@ -7,15 +7,7 @@ export const Route = createFileRoute("/_auth/")({
 
 function Homepage() {
    return (
-      <main className="font-manrope m-safe p-5">
-         <nav className="flex justify-between">
-            <div className="flex">
-               <h1 className="font-impact text-5xl">ERP PSIT</h1>
-               <h2 className="text-xs -m-[2px] self-end">Unofficial</h2>
-            </div>
-            <img className="size-12" src="images/avatar.png" alt="Avatar" />
-         </nav>
-
+      <main className="">
          <section className="mt-10 space-y-5">
             <div>
                <p>Good Morning,</p>
@@ -36,18 +28,26 @@ function Homepage() {
          </section>
 
          <section className="grid mt-10 gap-2 grid-cols-2">
-            <Tile heading="Hiee 👋" src="images/profile.png" footer={{ aux: "Explore", main: "Profile" }} />
-            <Tile
-               heading="Notifications"
-               src="images/notifications.png"
-               footer={{ aux: "Listen to the latest", main: "Announcements" }}
-            />
-            <Tile heading="MONDAY" src="images/timetable.png" footer={{ aux: "Explore", main: "Timetable" }} />
-            <Tile
-               heading="Attendance"
-               src="images/attendance.png"
-               footer={{ aux: "Last updated at", main: "2:07 PM" }}
-            />
+            <Link to="/profile">
+               <Tile heading="Hiee 👋" src="images/profile.png" footer={{ aux: "Explore", main: "Profile" }} />
+            </Link>
+            <Link to="/notifications">
+               <Tile
+                  heading="Notifications"
+                  src="images/notifications.png"
+                  footer={{ aux: "Listen to the latest", main: "Announcements" }}
+               />
+            </Link>
+            <Link to="/time-table">
+               <Tile heading="MONDAY" src="images/timetable.png" footer={{ aux: "Explore", main: "Timetable" }} />
+            </Link>
+            <Link to="/attendance">
+               <Tile
+                  heading="Attendance"
+                  src="images/attendance.png"
+                  footer={{ aux: "Last updated at", main: "2:07 PM" }}
+               />
+            </Link>
          </section>
       </main>
    )

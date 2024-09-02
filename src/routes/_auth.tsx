@@ -1,5 +1,5 @@
-import { auth } from "@/main";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { auth } from "@/components/auth//utils/auth"
+import { createFileRoute, redirect } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/_auth")({
    beforeLoad: ({ context, location }) => {
@@ -9,12 +9,12 @@ export const Route = createFileRoute("/_auth")({
             search: {
                redirect: location.href,
             },
-         });
+         })
       }
 
       return {
          username: auth.username,
          password: auth.password,
-      };
+      }
    },
-});
+})

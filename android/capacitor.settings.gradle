@@ -2,5 +2,8 @@
 include ':capacitor-android'
 project(':capacitor-android').projectDir = new File('../node_modules/.pnpm/@capacitor+android@6.1.2_@capacitor+core@6.1.2/node_modules/@capacitor/android/capacitor')
 
+include ':capacitor-toast'
+project(':capacitor-toast').projectDir = new File('../node_modules/.pnpm/@capacitor+toast@6.0.2_@capacitor+core@6.1.2/node_modules/@capacitor/toast/android')
+
 include ':capacitor-plugin-safe-area'
 project(':capacitor-plugin-safe-area').projectDir = new File('../node_modules/.pnpm/capacitor-plugin-safe-area@3.0.3_@capacitor+core@6.1.2/node_modules/capacitor-plugin-safe-area/android')
