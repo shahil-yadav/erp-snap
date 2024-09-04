@@ -1,18 +1,18 @@
 import { NetworkInfo } from "@/components/network-info"
 import { useDisplayToast } from "@/hooks/useDisplayToast"
 import { cn } from "@/lib/utils"
-import { CapacitorHttp } from "@capacitor/core"
+import { erp } from "@/utils/erp"
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
 import * as cheerio from "cheerio"
 
 export const Route = createFileRoute("/_auth/profile")({
    component: Profile,
-   loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(options()),
+   loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(Options()),
 })
 
 function Profile() {
-   const query = useSuspenseQuery(options())
+   const query = useSuspenseQuery(Options())
    const {
       data: { name, profileImage, attendance, fine, branch, contact, dob, rollNo, userId, address, email, section },
       dataUpdatedAt,
@@ -121,13 +121,18 @@ function Group({ cHeading, cLabel, label, heading }: GroupProps) {
    )
 }
 
-function options() {
+function Options() {
+   const { username, password } = Route.useRouteContext({
+      select: ({ auth }) => ({
+         username: auth.username,
+         password: auth.password,
+      }),
+   })
+
    return queryOptions({
       queryKey: ["profile"],
       queryFn: async () => {
-         const html = await CapacitorHttp.get({
-            url: "https://erp.psit.ac.in/Student/Dashboard",
-         })
+         const html = await erp.get("https://erp.psit.ac.in/Student/Dashboard", username, password)
 
          const $ = cheerio.load(html.data)
          const data = $.extract({
