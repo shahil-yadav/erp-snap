@@ -1,6 +1,12 @@
 import { CapacitorCookies, CapacitorHttp } from "@capacitor/core"
 
-export async function loginIntoERP({ argUsername, argPassword }: { argUsername?: string; argPassword?: string }) {
+export async function loginIntoERP({
+   argUsername,
+   argPassword,
+}: {
+   argUsername?: string | number
+   argPassword?: string
+}) {
    if (!argUsername) throw new Error("Fill the roll number field")
    if (!argPassword) throw new Error("Fill the password field")
    const username = Number(argUsername)

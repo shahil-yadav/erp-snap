@@ -1,7 +1,7 @@
-import path from "path";
-import react from "@vitejs/plugin-react-swc";
-import { defineConfig } from "vite";
-import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
+import path from "path"
+import react from "@vitejs/plugin-react-swc"
+import { defineConfig } from "vite"
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite"
 
 export default defineConfig({
    plugins: [TanStackRouterVite(), react()],
@@ -10,4 +10,7 @@ export default defineConfig({
          "@": path.resolve(__dirname, "./src"),
       },
    },
-});
+   define: {
+      global: "window",
+   },
+})

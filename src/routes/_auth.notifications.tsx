@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { useDisplayToast } from "@/hooks/useDisplayToast"
-import { CapacitorHttp } from "@capacitor/core"
+import { erp } from "@/utils/erp"
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import * as cheerio from "cheerio"
@@ -11,11 +11,11 @@ import { Bell } from "lucide-react"
 
 export const Route = createFileRoute("/_auth/notifications")({
    component: Notifications,
-   loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(options()),
+   loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(Options()),
 })
 
 function Notifications() {
-   const query = useSuspenseQuery(options())
+   const query = useSuspenseQuery(Options())
    const {
       data: { notifications },
       dataUpdatedAt,
@@ -57,14 +57,19 @@ function Notifications() {
    )
 }
 
-function options() {
+function Options() {
+   const { username, password } = Route.useRouteContext({
+      select: ({ auth }) => ({
+         username: auth.username,
+         password: auth.password,
+      }),
+   })
+
    return queryOptions({
       queryKey: ["notifications"],
       queryFn: async () => {
-         const response = await CapacitorHttp.get({
-            url: "https://erp.psit.ac.in/Student",
-         })
-         const $ = cheerio.load(response.data)
+         const html = await erp.get("https://erp.psit.ac.in/Student", username, password)
+         const $ = cheerio.load(html.data)
          const data = $.extract({
             notifications: [
                {
