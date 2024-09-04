@@ -1,3 +1,4 @@
+import { auth } from "@/components/auth/services/auth"
 import { NetworkInfo } from "@/components/network-info"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -11,11 +12,11 @@ import { Bell } from "lucide-react"
 
 export const Route = createFileRoute("/_auth/notifications")({
    component: Notifications,
-   loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(Options()),
+   loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(options()),
 })
 
 function Notifications() {
-   const query = useSuspenseQuery(Options())
+   const query = useSuspenseQuery(options())
    const {
       data: { notifications },
       dataUpdatedAt,
@@ -57,18 +58,11 @@ function Notifications() {
    )
 }
 
-function Options() {
-   const { username, password } = Route.useRouteContext({
-      select: ({ auth }) => ({
-         username: auth.username,
-         password: auth.password,
-      }),
-   })
-
+function options() {
    return queryOptions({
       queryKey: ["notifications"],
       queryFn: async () => {
-         const html = await erp.get("https://erp.psit.ac.in/Student", username, password)
+         const html = await erp.get("https://erp.psit.ac.in/Student", auth.username, auth.password)
          const $ = cheerio.load(html.data)
          const data = $.extract({
             notifications: [
