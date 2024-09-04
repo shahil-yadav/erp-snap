@@ -8,7 +8,7 @@ import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "@tanstack/react-router"
 import { LogIn } from "lucide-react"
 import { FormEvent, useState } from "react"
-import { loginIntoERP } from "./utils/loginIntoERP"
+import { loginIntoERP } from "./services/loginIntoERP"
 
 const useCredentials = () => ({
    username: import.meta.env.VITE_APP_USERNAME,
