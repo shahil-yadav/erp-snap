@@ -1,5 +1,7 @@
+import { NetworkInfo } from "@/components/network-info"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { useDisplayToast } from "@/hooks/useDisplayToast"
 import { cn } from "@/lib/utils"
 import { CapacitorHttp } from "@capacitor/core"
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query"
@@ -15,13 +17,33 @@ export const Route = createFileRoute("/_auth/attendance")({
 
 function Attendance() {
    const query = useSuspenseQuery(options())
-   const { oaa, present, absent } = query.data
+   const {
+      data: { oaa, present, absent },
+      dataUpdatedAt,
+      error,
+      isError,
+      isSuccess,
+      isFetching,
+   } = query
    const lectures = oaa + present + absent
 
+   useDisplayToast(dataUpdatedAt)
    if (lectures === 0) {
       return <p>The session is not started yet</p>
    }
-   return <Chart oaa={oaa} present={present} absent={absent} />
+
+   return (
+      <main className="space-y-5">
+         <NetworkInfo
+            dataUpdatedAt={dataUpdatedAt}
+            error={error}
+            isError={isError}
+            isLoading={isFetching}
+            isSuccess={isSuccess}
+         />
+         <Chart oaa={oaa} present={present} absent={absent} />
+      </main>
+   )
 }
 
 function Chart(props: { oaa: number; present: number; absent: number }) {

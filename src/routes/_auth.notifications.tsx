@@ -1,6 +1,8 @@
+import { NetworkInfo } from "@/components/network-info"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
+import { useDisplayToast } from "@/hooks/useDisplayToast"
 import { CapacitorHttp } from "@capacitor/core"
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
@@ -14,30 +16,44 @@ export const Route = createFileRoute("/_auth/notifications")({
 
 function Notifications() {
    const query = useSuspenseQuery(options())
-   const { notifications } = query.data
+   const {
+      data: { notifications },
+      dataUpdatedAt,
+      error,
+      isError,
+      isSuccess,
+      isFetching,
+   } = query
 
+   useDisplayToast(dataUpdatedAt)
    return (
-      <Card>
-         <CardHeader>
-            <Link className="w-fit" to="/">
-               Back
-            </Link>
-            <CardTitle className="text-xl">Notifications</CardTitle>
-         </CardHeader>
-         <CardContent>
-            <ScrollArea className="h-[50vh]">
-               {notifications.map((notification) => (
-                  <>
-                     <Link to={notification.link} className="flex items-center ">
-                        <Bell className="w-4 flex-shrink-0 h-4 mr-5 aspect-square" />
-                        <p>{notification.label}</p>
-                     </Link>
-                     <Separator className="my-3" />
-                  </>
-               ))}
-            </ScrollArea>
-         </CardContent>
-      </Card>
+      <div className="space-y-5">
+         <NetworkInfo
+            dataUpdatedAt={dataUpdatedAt}
+            error={error}
+            isError={isError}
+            isLoading={isFetching}
+            isSuccess={isSuccess}
+         />
+         <Card>
+            <CardHeader>
+               <CardTitle className="underline underline-offset-4 text-xl">Notifications</CardTitle>
+            </CardHeader>
+            <CardContent>
+               <ScrollArea className="h-[50vh] pr-5">
+                  {notifications.map((notification) => (
+                     <>
+                        <Link to={notification.link} className="flex items-center ">
+                           <Bell className="w-4 flex-shrink-0 h-4 mr-5 aspect-square" />
+                           <p>{notification.label}</p>
+                        </Link>
+                        <Separator className="my-3" />
+                     </>
+                  ))}
+               </ScrollArea>
+            </CardContent>
+         </Card>
+      </div>
    )
 }
 

@@ -4,12 +4,14 @@
    "version": "0.0.0",
    "type": "module",
    "scripts": {
+      "build:android": "pnpm build && pnpm dev:android",
+      "build:ios": "pnpm build && pnpm dev:ios",
       "build": "tsc -b && vite build",
+      "dev:android": "npx cap sync && npx cap open android",
+      "dev:ios": "npx cap sync && npx cap open ios",
       "dev": "vite --host --port 4321",
       "lint": "eslint .",
-      "preview": "vite preview",
-      "native:android": "pnpm build && npx cap sync && npx cap open android",
-      "native:ios": "pnpm build && npx cap sync && npx cap open ios"
+      "preview": "vite preview"
    },
    "dependencies": {
       "@capacitor/android": "^6.1.2",

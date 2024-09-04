@@ -1,3 +1,5 @@
+import { NetworkInfo } from "@/components/network-info"
+import { useDisplayToast } from "@/hooks/useDisplayToast"
 import { cn } from "@/lib/utils"
 import { CapacitorHttp } from "@capacitor/core"
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query"
@@ -11,11 +13,25 @@ export const Route = createFileRoute("/_auth/profile")({
 
 function Profile() {
    const query = useSuspenseQuery(options())
-   const { name, profileImage, attendance, fine, branch, contact, dob, rollNo, userId, address, email, section } =
-      query.data
+   const {
+      data: { name, profileImage, attendance, fine, branch, contact, dob, rollNo, userId, address, email, section },
+      dataUpdatedAt,
+      error,
+      isError,
+      isSuccess,
+      isFetching,
+   } = query
 
+   useDisplayToast(dataUpdatedAt)
    return (
-      <main className="py-10 px-5 font-manrope">
+      <main className="space-y-5">
+         <NetworkInfo
+            dataUpdatedAt={dataUpdatedAt}
+            error={error}
+            isError={isError}
+            isLoading={isFetching}
+            isSuccess={isSuccess}
+         />
          <div className="grid gap-x-10 grid-cols-2">
             <section className="flex space-y-5 flex-col bg-secondary justify-center items-center">
                <img className="rounded-md w-20" src={profileImage ?? "images/avatar.png"} alt="avatar" />

@@ -5,6 +5,7 @@ import { createFileRoute, useRouter } from "@tanstack/react-router"
 import { LogOut } from "lucide-react"
 import { useLayoutEffect } from "react"
 import { z } from "zod"
+import { queryClient } from "@/main"
 
 export const Route = createFileRoute("/login")({
    validateSearch: z.object({
@@ -42,6 +43,7 @@ function SignOut() {
          <p>Password : {auth.password}</p>
          <Button
             onClick={() => {
+               queryClient.removeQueries()
                auth.logout()
                router.invalidate()
             }}

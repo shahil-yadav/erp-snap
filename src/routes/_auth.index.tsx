@@ -16,8 +16,12 @@ function Homepage() {
             <div className="flex justify-between">
                <div className="self-end space-y-5">
                   <div className="flex gap-2 items-center">
-                     <img className="w-10 h-8" src="images/github.png" alt="Github" />
-                     <img className="size-10" src="images/linkedin.png" alt="LinkedIn" />
+                     <a href="https://www.github.com/shahil-yadav/erp-snap">
+                        <img className="w-10 h-8" src="images/github.png" alt="Github" />
+                     </a>
+                     <a href="https://www.linkedin.com/in/shahilyadav">
+                        <img className="size-10" src="images/linkedin.png" alt="LinkedIn" />
+                     </a>
                   </div>
                   <p className="text-xs">What do you want to do today ?</p>
                </div>
@@ -39,7 +43,7 @@ function Homepage() {
                />
             </Link>
             <Link to="/time-table">
-               <Tile heading="MONDAY" src="images/timetable.png" footer={{ aux: "Explore", main: "Timetable" }} />
+               <Tile heading="Monday" src="images/timetable.png" footer={{ aux: "Explore", main: "Timetable" }} />
             </Link>
             <Link to="/attendance">
                <Tile
