@@ -1,4 +1,4 @@
-import { auth } from "@/components/auth//utils/auth"
+import { auth } from "@/components/auth/services/auth"
 import { createFileRoute, redirect } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/_auth")({

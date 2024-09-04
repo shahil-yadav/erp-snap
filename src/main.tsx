@@ -1,4 +1,4 @@
-import { auth } from "@/components/auth/utils/auth"
+import { auth } from "@/components/auth/services/auth"
 import { Spinner } from "@/components/spinner"
 import { routeTree } from "@/routeTree.gen.ts"
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister"

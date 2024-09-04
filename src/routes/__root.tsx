@@ -1,4 +1,4 @@
-import { Auth } from "@/components/auth/utils/types"
+import { Auth } from "@/components/auth/services/types"
 import { Toaster } from "@/components/ui/toaster"
 import type { QueryClient } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"

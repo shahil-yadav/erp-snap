@@ -1,6 +1,6 @@
 import { SignIn } from "@/components/auth/sign-in"
 import { Button } from "@/components/ui/button"
-import { auth } from "@/components/auth/utils/auth"
+import { auth } from "@/components/auth/services/auth"
 import { createFileRoute, useRouter } from "@tanstack/react-router"
 import { LogOut } from "lucide-react"
 import { useLayoutEffect } from "react"
