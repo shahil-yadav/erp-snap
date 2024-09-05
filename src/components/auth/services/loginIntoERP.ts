@@ -1,4 +1,4 @@
-import { CapacitorCookies, CapacitorHttp } from "@capacitor/core"
+import { CapacitorCookies, CapacitorHttp, HttpResponse } from "@capacitor/core"
 
 export async function loginIntoERP({
    argUsername,
@@ -23,9 +23,13 @@ export async function loginIntoERP({
       },
    })
    /** Compatible with ios and android */
-   const headers = response.headers["refresh"] || response.headers["Refresh"]
+   const headers = extractRefreshHeader(response)
    if (headers === undefined) throw new Error("The ERP server is unresponsive right now, please try again later")
    const isAuthenticated = Boolean(headers.match(/student/i))
    if (isAuthenticated) return { username, password }
    throw new Error("Wrong credentials, please check them again")
+}
+
+export function extractRefreshHeader(response: HttpResponse) {
+   return response.headers["refresh"] || response.headers["Refresh"]
 }
