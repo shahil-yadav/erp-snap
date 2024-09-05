@@ -11,10 +11,10 @@ export const Route = createFileRoute("/login")({
    validateSearch: z.object({
       redirect: z.string().optional(),
    }),
-   component: Login,
+   component: Signin,
 })
 
-function Login() {
+function Signin() {
    const router = useRouter()
    const status = Route.useRouteContext({
       select: ({ auth }) => auth.status,
