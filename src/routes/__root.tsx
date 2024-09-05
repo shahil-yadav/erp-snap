@@ -1,8 +1,10 @@
 import { Auth } from "@/components/auth/services/types"
 import { Toaster } from "@/components/ui/toaster"
-import type { QueryClient } from "@tanstack/react-query"
+import { queryClient } from "@/main"
+import { profileOptions } from "@/routes/_auth.profile"
+import { type QueryClient } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import { createRootRouteWithContext, Link, Outlet, ScrollRestoration, useMatchRoute } from "@tanstack/react-router"
+import { createRootRouteWithContext, Link, Outlet, useMatchRoute } from "@tanstack/react-router"
 import { SafeArea } from "capacitor-plugin-safe-area"
 import { CircleArrowLeft } from "lucide-react"
 import { ReactNode, useEffect, useState } from "react"
@@ -14,7 +16,23 @@ export const Route = createRootRouteWithContext<{
    component: RootComponent,
 })
 
+function useAsync<T>(promise: Promise<T>) {
+   const [state, setState] = useState<T>()
+   useEffect(() => {
+      ;(async () => {
+         const output = await promise
+         setState(output)
+      })()
+   }, [])
+
+   return state
+}
+
 function RootComponent() {
+   const profileImage = useAsync<string | undefined>(
+      queryClient.ensureQueryData(profileOptions()).then((res) => res.profileImage)
+   )
+
    return (
       <SafeAreaView>
          {/* <Separator className="my-2" /> */}
@@ -26,11 +44,10 @@ function RootComponent() {
                </div>
             </Link>
             <Link to="/login">
-               <img className="size-12" src="images/avatar.png" alt="Avatar" />
+               <img className="w-10 rounded-md" src={profileImage ?? "images/avatar.png"} alt="Avatar" />
             </Link>
          </nav>
          <Back />
-         <ScrollRestoration />
          <Outlet />
          {/* <TanStackRouterDevtools /> */}
          <ReactQueryDevtools position="bottom" />
@@ -69,12 +86,6 @@ function SafeAreaView({ children }: { children?: ReactNode }) {
          }
       })()
    }, [])
+
    return <main className="m-safe px-5 py-2 font-manrope">{children}</main>
 }
-
-/*
-function RouterSpinner() {
-   const isLoading = useRouterState({ select: (s) => s.status === "pending" });
-   return <Spinner show={isLoading} />;
-}
-   */

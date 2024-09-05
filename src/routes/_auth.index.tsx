@@ -43,14 +43,16 @@ function Homepage() {
                />
             </Link>
             <Link to="/time-table">
-               <Tile heading="Monday" src="images/timetable.png" footer={{ aux: "Explore", main: "Timetable" }} />
+               <Tile
+                  heading={
+                     ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][new Date().getDay()]
+                  }
+                  src="images/timetable.png"
+                  footer={{ aux: "Explore", main: "Timetable" }}
+               />
             </Link>
             <Link to="/attendance">
-               <Tile
-                  heading="Attendance"
-                  src="images/attendance.png"
-                  footer={{ aux: "Last updated at", main: "2:07 PM" }}
-               />
+               <Tile heading="Attendance" src="images/attendance.png" footer={{ aux: "Explore", main: "Stats" }} />
             </Link>
          </section>
       </main>

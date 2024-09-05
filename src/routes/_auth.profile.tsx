@@ -9,11 +9,11 @@ import * as cheerio from "cheerio"
 
 export const Route = createFileRoute("/_auth/profile")({
    component: Profile,
-   loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(options()),
+   loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(profileOptions()),
 })
 
 function Profile() {
-   const query = useSuspenseQuery(options())
+   const query = useSuspenseQuery(profileOptions())
    const {
       data: { name, profileImage, attendance, fine, branch, contact, dob, rollNo, userId, address, email, section },
       dataUpdatedAt,
@@ -122,7 +122,7 @@ function Group({ cHeading, cLabel, label, heading }: GroupProps) {
    )
 }
 
-function options() {
+export function profileOptions() {
    return queryOptions({
       queryKey: ["profile"],
       queryFn: async () => {
