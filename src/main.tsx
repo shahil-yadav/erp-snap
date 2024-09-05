@@ -13,7 +13,7 @@ export const queryClient = new QueryClient({
    defaultOptions: {
       queries: {
          gcTime: 1000 * 60 * 60 * 24, // 24 hrs -> ms
-         staleTime: 1.5 * 60 * 60 * 1000, // 1.5 hrs -> ms
+         staleTime: 10 * 60 * 1000, // 10 minutes -> ms
          retry: 0,
       },
    },
@@ -30,8 +30,10 @@ const router = createRouter({
       queryClient,
    },
    defaultPendingComponent: () => (
-      <div className="p-2 text-2xl">
-         <Spinner />
+      <div className="h-[25vh] flex justify-center items-center">
+         <div className="p-2 text-5xl">
+            <Spinner />
+         </div>
       </div>
    ),
    defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,
