@@ -23,20 +23,19 @@ export function NetworkInfo(props: {
 }
 
 /**
- * The Success component displays the time elapsed since the data was last updated in minutes with an
- * auto-hide feature after 1.5 seconds.
+ * The Success component displays a success message if the data was fetched within the last 10 minutes.
  * @param props - The `Success` component takes a single prop `dataUpdatedAt`, which is a number
- * representing the timestamp when the data was last updated. This prop is used to calculate the time
- * difference in minutes between the current time and the `dataUpdatedAt` timestamp.
- * @returns The `Success` component is returning a `div` element with a background color class of
- * "bg-emerald-500" and padding of 5 units. Inside the `div`, it displays the text "Fetched" followed
- * by the number of minutes since the `dataUpdatedAt` timestamp using the `delta` function. The
- * `display` variable controls whether this content is displayed based on the `
+ * representing the timestamp of when the data was last updated.
+ * @returns The `Success` component is returning a conditional JSX element based on the `display` state
+ * and the comparison of the difference between the current time and the `dataUpdatedAt` timestamp. If
+ * the `display` state is true and the difference is less than or equal to 10 minutes, it will render a
+ * `<div>` element with a background color of emerald, displaying the message "Fetched X
  */
 function Success(props: { dataUpdatedAt: number }) {
    const display = useAutoHide(1500)
    return (
-      display && (
+      display &&
+      delta(props.dataUpdatedAt) <= 10 && (
          <div className="bg-emerald-500 p-5">
             Fetched <span className="font-semibold">{delta(props.dataUpdatedAt)}</span> minutes ago.
          </div>

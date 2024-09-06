@@ -35,7 +35,8 @@ function Profile() {
          />
          <div className="grid gap-x-10 grid-cols-2">
             <section className="flex space-y-5 flex-col bg-secondary justify-center items-center">
-               <img className="rounded-md w-20" src={profileImage ?? "images/avatar.png"} alt="avatar" />
+               {/* <img className="rounded-md w-20" src={profileImage ?? "images/avatar.png"} alt="avatar" /> */}
+               {profileImage?.slice(0, 5)}
                <span className="text-lg font-extrabold">{name}</span>
             </section>
 
