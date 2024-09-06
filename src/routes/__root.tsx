@@ -1,4 +1,5 @@
 import { Auth } from "@/components/auth/services/types"
+import { Spinner } from "@/components/spinner"
 import { Toaster } from "@/components/ui/toaster"
 import { queryClient } from "@/main"
 import { profileOptions } from "@/routes/_auth.profile"
@@ -8,6 +9,8 @@ import { createRootRouteWithContext, Link, Outlet, useMatchRoute } from "@tansta
 import { SafeArea } from "capacitor-plugin-safe-area"
 import { CircleArrowLeft } from "lucide-react"
 import { ReactNode, useEffect, useState } from "react"
+import PullToRefresh from "react-simple-pull-to-refresh"
+import { useTheme } from "@/hooks/useTheme"
 
 export const Route = createRootRouteWithContext<{
    queryClient: QueryClient
@@ -24,7 +27,6 @@ function useAsync<T>(promise: Promise<T>) {
          setState(output)
       })()
    }, [])
-
    return state
 }
 
@@ -34,25 +36,33 @@ function RootComponent() {
    )
 
    return (
-      <SafeAreaView>
-         {/* <Separator className="my-2" /> */}
-         <nav className="flex my-5 justify-between">
-            <Link to="/">
-               <div className="flex">
-                  <h1 className="font-impact text-5xl">ERP PSIT</h1>
-                  <h2 className="text-xs -m-[2px] self-end">Unofficial</h2>
-               </div>
-            </Link>
-            <Link to="/login">
-               <img className="w-10 rounded-md" src={profileImage ?? "images/avatar.png"} alt="Avatar" />
-            </Link>
-         </nav>
-         <Back />
-         <Outlet />
-         {/* <TanStackRouterDevtools /> */}
-         <ReactQueryDevtools position="bottom" />
-         <Toaster />
-      </SafeAreaView>
+      <>
+         <SafeAreaView>
+            <PullToRefresh refreshingContent={<Spinner />} onRefresh={() => queryClient.refetchQueries()}>
+               <>
+                  {/* <Separator className="my-2" /> */}
+                  <nav className="flex my-5 justify-between">
+                     <Link to="/">
+                        <div className="flex">
+                           <h1 className="font-impact text-5xl">ERP PSIT</h1>
+                           <h2 className="text-xs -m-[2px] self-end">Unofficial</h2>
+                        </div>
+                     </Link>
+                     <Link to="/login">
+                        {/* <img className="w-10 rounded-md" src={profileImage ?? "images/avatar.png"} alt="Avatar" />
+                         */}
+                        {profileImage?.slice(0, 5)}
+                     </Link>
+                  </nav>
+                  <Back />
+                  <Outlet />
+               </>
+            </PullToRefresh>
+            {/* <TanStackRouterDevtools /> */}
+            <ReactQueryDevtools position="bottom" />
+            <Toaster />
+         </SafeAreaView>
+      </>
    )
 }
 
@@ -77,6 +87,8 @@ function Back() {
 }
 
 function SafeAreaView({ children }: { children?: ReactNode }) {
+   useTheme()
+
    useEffect(() => {
       ;(async function () {
          const safeAreaData = await SafeArea.getSafeAreaInsets()
