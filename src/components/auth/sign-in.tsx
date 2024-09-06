@@ -43,7 +43,7 @@ export function SignIn() {
                onChange={(e) => setPassword(e.target.value)}
                placeholder="Password"
                role="password"
-               type="text"
+               type="password"
             />
          </div>
          <div className="flex w-full justify-end">
