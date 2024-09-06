@@ -88,7 +88,6 @@ function Back() {
 
 function SafeAreaView({ children }: { children?: ReactNode }) {
    useTheme()
-
    useEffect(() => {
       ;(async function () {
          const safeAreaData = await SafeArea.getSafeAreaInsets()
