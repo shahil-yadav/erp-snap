@@ -4,7 +4,7 @@ import { Body, Footer, Layout, Navbar } from "@/components/layout";
 import { Watermark } from "@/components/watermark";
 import { queryClient } from "@/main";
 import { profileOptions } from "@/routes/_auth.profile";
-import { createFileRoute, Link, Outlet, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, redirect, useMatchRoute } from "@tanstack/react-router";
 import { CircleArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -59,23 +59,27 @@ function Root() {
 }
 
 function Back() {
+  const params = useMatchRoute()({ to: "/" });
   return (
-    <div className="mb-5">
-      <Link to="..">
-        <CircleArrowLeft className="h-7 w-7" />
-      </Link>
-    </div>
+    !params && (
+      <div className="mb-2">
+        <Link to="..">
+          <CircleArrowLeft className="h-7 w-7" />
+        </Link>
+      </div>
+    )
   );
 }
 
 function useAsync<T>(promise: Promise<T>) {
   const [state, setState] = useState<T>();
+
   useEffect(() => {
     (async () => {
       const output = await promise;
       setState(output);
     })();
-  }, []);
+  }, [promise]);
 
   return state;
 }

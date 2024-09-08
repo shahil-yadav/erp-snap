@@ -25,7 +25,7 @@ function Signin() {
     if (status === "loggedIn" && search.redirect) {
       router.history.push(search.redirect);
     }
-  }, [status, search.redirect]);
+  }, [status, search.redirect, router.history]);
 
   return (
     <Layout>
