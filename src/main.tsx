@@ -1,23 +1,13 @@
 import { auth } from "@/components/auth/services/auth";
 import { Spinner } from "@/components/spinner";
+import { queryClient } from "@/lib/query/client";
 import { routeTree } from "@/routeTree.gen.ts";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
-import { QueryClient } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createRouter, ErrorComponent, RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      gcTime: 1000 * 60 * 60 * 24, // 24 hrs -> ms
-      staleTime: 10 * 60 * 1000, // 10 minutes -> ms
-      retry: 0,
-    },
-  },
-});
 
 const persister = createSyncStoragePersister({
   storage: window.localStorage,

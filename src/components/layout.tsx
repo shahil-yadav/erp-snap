@@ -1,4 +1,4 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { queryClient } from "@/main";
 import { ReactNode } from "@tanstack/react-router";
 import { createContext } from "react";
 import PullToRefresh from "react-simple-pull-to-refresh";
@@ -9,9 +9,7 @@ function Layout({ children }: { children: ReactNode }) {
   return (
     <LayoutContext.Provider value={null}>
       <div className="h-screen p-safe px-safe-offset-3">
-        <PullToRefresh
-          onRefresh={() => new Promise((res) => setTimeout(() => res("resolved"), 5 * 1000))}
-        >
+        <PullToRefresh onRefresh={() => queryClient.refetchQueries()}>
           <div className="flex h-full flex-col">{children}</div>
         </PullToRefresh>
       </div>
@@ -24,7 +22,7 @@ Layout.Navbar = ({ children }: { children: ReactNode }) => (
 );
 
 Layout.Body = ({ children }: { children: ReactNode }) => (
-  <div className="flex flex-1 flex-col overflow-auto py-5">{children}</div>
+  <div className="flex flex-1 flex-col overflow-auto">{children}</div>
 );
 
 Layout.Footer = ({ children }: { children: ReactNode }) => <div className="my-7">{children}</div>;
