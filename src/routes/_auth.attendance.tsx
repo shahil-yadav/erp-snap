@@ -13,7 +13,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { useDisplayToast } from "@/hooks/useDisplayToast";
+
 import { cn } from "@/lib/utils";
 import { CapacitorHttp } from "@capacitor/core";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
@@ -38,8 +38,6 @@ function Attendance() {
     isFetching,
   } = query;
   const lectures = oaa + present + absent;
-
-  useDisplayToast(dataUpdatedAt);
 
   return (
     <main className="space-y-5">

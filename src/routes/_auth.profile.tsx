@@ -1,7 +1,6 @@
 import { auth } from "@/components/auth/services/auth";
 import { ReactImage } from "@/components/image";
 import { NetworkInfo } from "@/components/network-info";
-import { useDisplayToast } from "@/hooks/useDisplayToast";
 import { cn } from "@/lib/utils";
 import { erp } from "@/utils/erp";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
@@ -37,7 +36,6 @@ function Profile() {
     isFetching,
   } = query;
 
-  useDisplayToast(dataUpdatedAt);
   return (
     <main className="space-y-5">
       <NetworkInfo
