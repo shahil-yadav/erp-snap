@@ -13,7 +13,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { useDisplayToast } from "@/hooks/useDisplayToast";
+
 import { cn } from "@/lib/utils";
 import { CapacitorHttp } from "@capacitor/core";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
@@ -38,8 +38,6 @@ function Attendance() {
     isFetching,
   } = query;
   const lectures = oaa + present + absent;
-
-  useDisplayToast(dataUpdatedAt);
 
   return (
     <main className="space-y-5">
@@ -186,20 +184,20 @@ function options() {
       const scrape = $.extract({
         lectures: "#content > div > div > div > div.panel-body > div:nth-child(2) > span > strong",
         oaa: "#content > div > div > div > div.panel-body > div:nth-child(4) > span > a > strong",
-        oaaPlusAttendance:
+        oaaPlusAbsent:
           "#content > div > div > div > div.panel-body > div:nth-child(3) > span > strong",
       });
 
       const formattedData = {
         lectures: Number(scrape.lectures?.split(":").at(-1)),
         oaa: Number(scrape.oaa?.split(":").at(-1)),
-        oaaPlusAttendance: Number(scrape.oaaPlusAttendance?.split(":").at(-1)),
+        oaaPlusAbsent: Number(scrape.oaaPlusAbsent?.split(":").at(-1)),
       };
 
       return {
         oaa: formattedData.oaa,
-        absent: formattedData.lectures - formattedData.oaaPlusAttendance,
-        present: formattedData.oaaPlusAttendance - formattedData.oaa,
+        absent: formattedData.oaaPlusAbsent - formattedData.oaa,
+        present: formattedData.lectures - formattedData.oaaPlusAbsent,
       };
     },
   });

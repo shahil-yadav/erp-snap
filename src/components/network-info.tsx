@@ -1,25 +1,41 @@
-import { Spinner } from "@/components/spinner"
-import { delta } from "@/hooks/useDisplayToast"
-import { useEffect, useRef, useState } from "react"
+import { Spinner } from "@/components/spinner";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/hooks/use-toast";
+import { useEffect, useRef, useState } from "react";
 
 export function NetworkInfo(props: {
-   dataUpdatedAt: number
-   error: Error | null
-   isError: boolean
-   isLoading: boolean
-   isSuccess: boolean
+  dataUpdatedAt: number;
+  error: Error | null;
+  isError: boolean;
+  isLoading: boolean;
+  isSuccess: boolean;
 }) {
-   return (
-      <div className="text-xs">
-         {props.isLoading && (
-            <div className="bg-yellow-500 p-5">
-               Fetching the latest data from PSIT server <Spinner />
-            </div>
-         )}
-         {props.isLoading === false && props.isSuccess && <Success dataUpdatedAt={props.dataUpdatedAt} />}
-         {props.isError && <div className="bg-destructive p-5 text-destructive-foreground">{props.error?.message}</div>}
-      </div>
-   )
+  const { toast } = useToast();
+  const duration = delta(props.dataUpdatedAt);
+
+  if (!props.isLoading && duration > 10)
+    toast({
+      variant: "destructive",
+      title: `Last updated ${duration} minutes ago`,
+      description: `Please refresh, ${new Date(props.dataUpdatedAt).toLocaleTimeString()}`,
+      action: <ToastAction altText="close">Close</ToastAction>,
+    });
+
+  return (
+    <div className="text-xs">
+      {props.isLoading && (
+        <div className="bg-yellow-500 p-5">
+          Fetching the latest data from PSIT server <Spinner />
+        </div>
+      )}
+      {props.isLoading === false && props.isSuccess && (
+        <Success dataUpdatedAt={props.dataUpdatedAt} />
+      )}
+      {props.isLoading === false && props.isError && (
+        <div className="bg-destructive p-5 text-destructive-foreground">{props.error?.message}</div>
+      )}
+    </div>
+  );
 }
 
 /**
@@ -32,15 +48,15 @@ export function NetworkInfo(props: {
  * `<div>` element with a background color of emerald, displaying the message "Fetched X
  */
 function Success(props: { dataUpdatedAt: number }) {
-   const display = useAutoHide(1500)
-   return (
-      display &&
-      delta(props.dataUpdatedAt) <= 10 && (
-         <div className="bg-emerald-500 p-5">
-            Fetched <span className="font-semibold">{delta(props.dataUpdatedAt)}</span> minutes ago.
-         </div>
-      )
-   )
+  const display = useAutoHide(1500);
+  return (
+    display &&
+    delta(props.dataUpdatedAt) <= 10 && (
+      <div className="bg-emerald-500 p-5">
+        Fetched <span className="font-semibold">{delta(props.dataUpdatedAt)}</span> minutes ago.
+      </div>
+    )
+  );
 }
 
 /**
@@ -53,15 +69,19 @@ function Success(props: { dataUpdatedAt: number }) {
  * visible or hidden based on the timer set in the `time` parameter.
  */
 function useAutoHide(time: number) {
-   const [display, setDisplay] = useState(true)
-   const ref = useRef<NodeJS.Timeout>()
+  const [display, setDisplay] = useState(true);
+  const ref = useRef<NodeJS.Timeout>();
 
-   useEffect(() => {
-      ref.current = setInterval(() => setDisplay(false), time)
-      return () => {
-         if (ref.current !== undefined) clearInterval(ref.current)
-      }
-   }, [])
+  useEffect(() => {
+    ref.current = setInterval(() => setDisplay(false), time);
+    return () => {
+      if (ref.current !== undefined) clearInterval(ref.current);
+    };
+  }, []);
 
-   return display
+  return display;
+}
+
+function delta(dataUpdatedAt: number) {
+  return Math.round((new Date().getTime() - new Date(dataUpdatedAt).getTime()) / 1000 / 60);
 }
