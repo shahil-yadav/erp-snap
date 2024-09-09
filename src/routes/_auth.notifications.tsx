@@ -3,7 +3,6 @@ import { NetworkInfo } from "@/components/network-info";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { useDisplayToast } from "@/hooks/useDisplayToast";
 import { erp } from "@/utils/erp";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -26,7 +25,6 @@ function Notifications() {
     isFetching,
   } = query;
 
-  useDisplayToast(dataUpdatedAt);
   return (
     <div className="space-y-5">
       <NetworkInfo

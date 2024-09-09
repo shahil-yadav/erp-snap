@@ -1,12 +1,5 @@
 import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
+import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { Check, ChevronsUpDown } from "lucide-react";
@@ -45,9 +38,9 @@ export function Days({
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search in days..." />
+          {/* <CommandInput placeholder="Search in days..." /> */}
           <CommandList>
-            <CommandEmpty>Not Found</CommandEmpty>
+            {/* <CommandEmpty>Not Found</CommandEmpty> */}
             <CommandGroup>
               {days.map((day) => (
                 <CommandItem
