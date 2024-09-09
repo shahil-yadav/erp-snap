@@ -11,7 +11,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useDisplayToast } from "@/hooks/useDisplayToast";
 import { erp } from "@/utils/erp";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -28,7 +27,6 @@ function TimeTable() {
     useSuspenseQuery(options());
   const [day, setDay] = useState(data.days[new Date().getDay()]);
 
-  useDisplayToast(dataUpdatedAt);
   return (
     <div className="space-y-5">
       <NetworkInfo

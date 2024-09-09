@@ -10,14 +10,20 @@ import { Eye, EyeOff, LogIn } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { loginIntoERP } from "./services/loginIntoERP";
 
-const useCredentials = () => ({
-  username: import.meta.env.VITE_APP_USERNAME,
-  password: import.meta.env.VITE_APP_PASSWORD,
-});
+// const useCredentials = () => ({
+//   username: import.meta.env.VITE_APP_USERNAME,
+//   password: import.meta.env.VITE_APP_PASSWORD,
+// });
 
 export function SignIn() {
-  const [password, setPassword] = useState<string>(useCredentials().password || "");
-  const [username, setUsername] = useState<string>(useCredentials().username || "");
+  const [password, setPassword] = useState<string>(
+    // useCredentials().password ||
+    "",
+  );
+  const [username, setUsername] = useState<string>(
+    // useCredentials().username ||
+    "",
+  );
   const { mutate, isError, isPending } = useAuthenticateMutation();
 
   async function handleSubmit(ev: FormEvent<HTMLFormElement>) {
