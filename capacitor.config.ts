@@ -12,10 +12,10 @@ const config: CapacitorConfig = {
       enabled: true,
     },
   },
-  // server: {
-  //   url: "http://192.168.1.34:4321/",
-  //   cleartext: true,
-  // },
+  server: {
+    url: "http://192.168.1.34:4321/",
+    cleartext: true,
+  },
 };
 
 export default config;

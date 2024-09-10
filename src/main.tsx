@@ -30,7 +30,13 @@ const router = createRouter({
     auth: undefined!,
     queryClient,
   },
-  defaultPendingComponent: () => <Spinner />,
+  defaultPendingComponent: () => (
+    <div className="flex items-center justify-center h-screen-safe">
+      <div className="scale-[2]">
+        <Spinner />
+      </div>
+    </div>
+  ),
   defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,
   defaultPreload: "viewport",
   /**
