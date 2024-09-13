@@ -1,7 +1,5 @@
 import { auth } from "@/components/auth/services/auth";
 import { NetworkInfo } from "@/components/network-info";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { erp } from "@/utils/erp";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
@@ -34,24 +32,18 @@ function Notifications() {
         isLoading={isFetching}
         isSuccess={isSuccess}
       />
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-xl underline underline-offset-4">Notifications</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ScrollArea className="h-[45vh] pr-5">
-            {notifications.map((notification) => (
-              <>
-                <Link to={notification.link} className="flex items-center">
-                  <Bell className="mr-5 aspect-square h-4 w-4 flex-shrink-0" />
-                  <p>{notification.label}</p>
-                </Link>
-                <Separator className="my-3" />
-              </>
-            ))}
-          </ScrollArea>
-        </CardContent>
-      </Card>
+
+      <div>
+        {notifications.map((notification) => (
+          <>
+            <Link to={notification.link} className="flex items-center">
+              <Bell className="mr-5 aspect-square h-4 w-4 flex-shrink-0" />
+              <p>{notification.label}</p>
+            </Link>
+            <Separator className="my-3" />
+          </>
+        ))}
+      </div>
     </div>
   );
 }
