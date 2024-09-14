@@ -13,10 +13,10 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-
+import { onlineManager } from "@/lib/online-manager";
 import { cn } from "@/lib/utils";
 import { CapacitorHttp } from "@capacitor/core";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import * as cheerio from "cheerio";
 import { CircleArrowOutUpLeft } from "lucide-react";
@@ -24,11 +24,13 @@ import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
 
 export const Route = createFileRoute("/_auth/attendance")({
   component: Attendance,
-  loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(options()),
+  loader: ({ context: { queryClient, isRestoring } }) =>
+    queryClient.getQueryData(options.queryKey) ??
+    (onlineManager.isOnline() && !isRestoring ? queryClient.fetchQuery(options) : undefined),
 });
 
 function Attendance() {
-  const query = useSuspenseQuery(options());
+  const query = useSuspenseQuery(options);
   const {
     data: { oaa, present, absent },
     dataUpdatedAt,
@@ -36,6 +38,7 @@ function Attendance() {
     isError,
     isSuccess,
     isFetching,
+    isPaused,
   } = query;
   const lectures = oaa + present + absent;
 
@@ -47,6 +50,7 @@ function Attendance() {
         isError={isError}
         isLoading={isFetching}
         isSuccess={isSuccess}
+        isPaused={isPaused}
       />
       {lectures === 0 ? (
         <p>The session is not started yet</p>
@@ -172,33 +176,31 @@ function Chart(props: { oaa: number; present: number; absent: number }) {
   );
 }
 
-function options() {
-  return queryOptions({
-    queryKey: ["attendance"],
-    queryFn: async () => {
-      const html = await CapacitorHttp.get({
-        url: "https://erp.psit.ac.in/Student/MyAttendanceDetail",
-      });
+const options = {
+  queryKey: ["attendance"],
+  queryFn: async () => {
+    const html = await CapacitorHttp.get({
+      url: "https://erp.psit.ac.in/Student/MyAttendanceDetail",
+    });
 
-      const $ = cheerio.load(html.data);
-      const scrape = $.extract({
-        lectures: "#content > div > div > div > div.panel-body > div:nth-child(2) > span > strong",
-        oaa: "#content > div > div > div > div.panel-body > div:nth-child(4) > span > a > strong",
-        oaaPlusAbsent:
-          "#content > div > div > div > div.panel-body > div:nth-child(3) > span > strong",
-      });
+    const $ = cheerio.load(html.data);
+    const scrape = $.extract({
+      lectures: "#content > div > div > div > div.panel-body > div:nth-child(2) > span > strong",
+      oaa: "#content > div > div > div > div.panel-body > div:nth-child(4) > span > a > strong",
+      oaaPlusAbsent:
+        "#content > div > div > div > div.panel-body > div:nth-child(3) > span > strong",
+    });
 
-      const formattedData = {
-        lectures: Number(scrape.lectures?.split(":").at(-1)),
-        oaa: Number(scrape.oaa?.split(":").at(-1)),
-        oaaPlusAbsent: Number(scrape.oaaPlusAbsent?.split(":").at(-1)),
-      };
+    const formattedData = {
+      lectures: Number(scrape.lectures?.split(":").at(-1)),
+      oaa: Number(scrape.oaa?.split(":").at(-1)),
+      oaaPlusAbsent: Number(scrape.oaaPlusAbsent?.split(":").at(-1)),
+    };
 
-      return {
-        oaa: formattedData.oaa,
-        absent: formattedData.oaaPlusAbsent - formattedData.oaa,
-        present: formattedData.lectures - formattedData.oaaPlusAbsent,
-      };
-    },
-  });
-}
+    return {
+      oaa: formattedData.oaa,
+      absent: formattedData.oaaPlusAbsent - formattedData.oaa,
+      present: formattedData.lectures - formattedData.oaaPlusAbsent,
+    };
+  },
+};

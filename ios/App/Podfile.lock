@@ -2,12 +2,15 @@ PODS:
   - Capacitor (6.1.2):
     - CapacitorCordova
   - CapacitorCordova (6.1.2)
+  - CapacitorNetwork (6.0.2):
+    - Capacitor
   - CapacitorPluginSafeArea (3.0.3):
     - Capacitor
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/.pnpm/@capacitor+ios@6.1.2_@capacitor+core@6.1.2/node_modules/@capacitor/ios`)"
   - "CapacitorCordova (from `../../node_modules/.pnpm/@capacitor+ios@6.1.2_@capacitor+core@6.1.2/node_modules/@capacitor/ios`)"
+  - "CapacitorNetwork (from `../../node_modules/.pnpm/@capacitor+network@6.0.2_@capacitor+core@6.1.2/node_modules/@capacitor/network`)"
   - "CapacitorPluginSafeArea (from `../../node_modules/.pnpm/capacitor-plugin-safe-area@3.0.3_@capacitor+core@6.1.2/node_modules/capacitor-plugin-safe-area`)"
 
 EXTERNAL SOURCES:
@@ -15,14 +18,17 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/.pnpm/@capacitor+ios@6.1.2_@capacitor+core@6.1.2/node_modules/@capacitor/ios"
   CapacitorCordova:
     :path: "../../node_modules/.pnpm/@capacitor+ios@6.1.2_@capacitor+core@6.1.2/node_modules/@capacitor/ios"
+  CapacitorNetwork:
+    :path: "../../node_modules/.pnpm/@capacitor+network@6.0.2_@capacitor+core@6.1.2/node_modules/@capacitor/network"
   CapacitorPluginSafeArea:
     :path: "../../node_modules/.pnpm/capacitor-plugin-safe-area@3.0.3_@capacitor+core@6.1.2/node_modules/capacitor-plugin-safe-area"
 
 SPEC CHECKSUMS:
   Capacitor: 679f9673fdf30597493a6362a5d5bf233d46abc2
   CapacitorCordova: f48c89f96c319101cd2f0ce8a2b7449b5fb8b3dd
+  CapacitorNetwork: 8796cf1f1104a00b289957b6150b7c60e1c2a8d3
   CapacitorPluginSafeArea: e1eca7f70974f0e270d96f70cd0a5f51523164b1
 
-PODFILE CHECKSUM: a09d86f52cb6a41591cb0b67145564b9f1cd6464
+PODFILE CHECKSUM: 460fc6f3b8c148f6e87062c5e7c58c418a0e1e43
 
 COCOAPODS: 1.15.2

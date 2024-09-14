@@ -9,20 +9,28 @@ export function NetworkInfo(props: {
   isError: boolean;
   isLoading: boolean;
   isSuccess: boolean;
+  isPaused: boolean;
 }) {
   const { toast } = useToast();
   const duration = delta(props.dataUpdatedAt);
 
-  if (!props.isLoading && duration > 10)
-    toast({
-      variant: "destructive",
-      title: `Last updated ${duration} minutes ago`,
-      description: `Please refresh, ${new Date(props.dataUpdatedAt).toLocaleTimeString()}`,
-      action: <ToastAction altText="close">Close</ToastAction>,
-    });
+  useEffect(() => {
+    if (!props.isLoading && duration > 10)
+      toast({
+        variant: "destructive",
+        title: `Last updated ${duration} minutes ago`,
+        description: `Please refresh, ${new Date(props.dataUpdatedAt).toLocaleTimeString()}`,
+        action: <ToastAction altText="close">Close</ToastAction>,
+      });
+  }, [props.isLoading, duration, props.dataUpdatedAt, toast]);
 
   return (
     <div className="text-xs">
+      {props.isPaused && (
+        <div className="bg-destructive p-5">
+          You're offline, kindly check your internet connection. The query is paused right now.
+        </div>
+      )}
       {props.isLoading && (
         <div className="bg-yellow-500 p-5">
           Fetching the latest data from PSIT server <Spinner />

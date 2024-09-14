@@ -1,19 +1,22 @@
 import { auth } from "@/components/auth/services/auth";
 import { NetworkInfo } from "@/components/network-info";
 import { Separator } from "@/components/ui/separator";
+import { onlineManager } from "@/lib/online-manager";
 import { erp } from "@/utils/erp";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import * as cheerio from "cheerio";
 import { Bell } from "lucide-react";
 
 export const Route = createFileRoute("/_auth/notifications")({
   component: Notifications,
-  loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(options()),
+  loader: ({ context: { queryClient, isRestoring } }) =>
+    queryClient.getQueryData(options.queryKey) ??
+    (onlineManager.isOnline() && !isRestoring ? queryClient.fetchQuery(options) : undefined),
 });
 
 function Notifications() {
-  const query = useSuspenseQuery(options());
+  const query = useSuspenseQuery(options);
   const {
     data: { notifications },
     dataUpdatedAt,
@@ -21,6 +24,7 @@ function Notifications() {
     isError,
     isSuccess,
     isFetching,
+    isPaused,
   } = query;
 
   return (
@@ -31,6 +35,7 @@ function Notifications() {
         isError={isError}
         isLoading={isFetching}
         isSuccess={isSuccess}
+        isPaused={isPaused}
       />
 
       <div>
@@ -48,27 +53,25 @@ function Notifications() {
   );
 }
 
-function options() {
-  return queryOptions({
-    queryKey: ["notifications"],
-    queryFn: async () => {
-      const html = await erp.get("https://erp.psit.ac.in/Student", auth.username, auth.password);
-      const $ = cheerio.load(html.data);
-      const data = $.extract({
-        notifications: [
-          {
-            selector: "#style-3 > table > tbody > tr",
-            value: {
-              link: {
-                selector: "a",
-                value: "href",
-              },
-              label: "a",
+const options = {
+  queryKey: ["notifications"],
+  queryFn: async () => {
+    const html = await erp.get("https://erp.psit.ac.in/Student", auth.username, auth.password);
+    const $ = cheerio.load(html.data);
+    const data = $.extract({
+      notifications: [
+        {
+          selector: "#style-3 > table > tbody > tr",
+          value: {
+            link: {
+              selector: "a",
+              value: "href",
             },
+            label: "a",
           },
-        ],
-      });
-      return data;
-    },
-  });
-}
+        },
+      ],
+    });
+    return data;
+  },
+};
