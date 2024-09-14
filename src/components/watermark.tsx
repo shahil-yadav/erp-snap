@@ -1,4 +1,4 @@
-import { useDetectDarkTheme } from "@/hooks/useTheme";
+import { useDetectDarkTheme } from "@/hooks/use-theme";
 
 export function Watermark() {
   const isDark = useDetectDarkTheme();
