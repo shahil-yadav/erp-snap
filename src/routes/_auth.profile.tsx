@@ -1,39 +1,43 @@
 import { auth } from "@/components/auth/services/auth";
 import { ReactImage } from "@/components/image";
 import { NetworkInfo } from "@/components/network-info";
+import { onlineManager } from "@/lib/online-manager";
 import { cn } from "@/lib/utils";
 import { erp } from "@/utils/erp";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import * as cheerio from "cheerio";
 
 export const Route = createFileRoute("/_auth/profile")({
   component: Profile,
-  loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(profileOptions()),
+  loader: ({ context: { queryClient, isRestoring } }) =>
+    queryClient.getQueryData(profileOptions.queryKey) ??
+    (onlineManager.isOnline() && !isRestoring ? queryClient.fetchQuery(profileOptions) : undefined),
 });
 
 function Profile() {
-  const query = useSuspenseQuery(profileOptions());
+  const query = useSuspenseQuery(profileOptions);
   const {
     data: {
-      name,
-      profileImage,
+      address,
       attendance,
-      fine,
       branch,
       contact,
       dob,
-      rollNo,
-      userId,
-      address,
       email,
+      fine,
+      name,
+      profileImage,
+      rollNo,
       section,
+      userId,
     },
     dataUpdatedAt,
     error,
     isError,
     isSuccess,
     isFetching,
+    isPaused,
   } = query;
 
   return (
@@ -44,6 +48,7 @@ function Profile() {
         isError={isError}
         isLoading={isFetching}
         isSuccess={isSuccess}
+        isPaused={isPaused}
       />
       <div className="grid grid-cols-2 gap-x-10">
         <section className="flex flex-col items-center justify-center space-y-5 bg-secondary">
@@ -123,6 +128,7 @@ interface GroupProps {
   cHeading?: string;
   cLabel?: string;
 }
+
 function Group({ cHeading, cLabel, label, heading }: GroupProps) {
   return (
     heading && (
@@ -134,61 +140,59 @@ function Group({ cHeading, cLabel, label, heading }: GroupProps) {
   );
 }
 
-export function profileOptions() {
-  return queryOptions({
-    queryKey: ["profile"],
-    queryFn: async () => {
-      const html = await erp.get(
-        "https://erp.psit.ac.in/Student/Dashboard",
-        auth.username,
-        auth.password,
-      );
-      const $ = cheerio.load(html.data);
-      const data = $.extract({
-        attendance: ".badge.btn.btn-lg.btn-danger",
-        fine: ".list-group-item.text-ellipsis:nth-child(2) > span",
-        isDetained: ".list-group-item.text-ellipsis:nth-child(2) > p",
-        name: ".media-left > button",
-        profile: [
-          {
-            selector: ".media-body:nth-of-type(2) > table > tbody > tr",
-            value: {
-              label: "td",
-              value: "td:nth-child(2)",
-            },
+export const profileOptions = {
+  queryKey: ["profile"],
+  queryFn: async () => {
+    const html = await erp.get(
+      "https://erp.psit.ac.in/Student/Dashboard",
+      auth.username,
+      auth.password,
+    );
+    const $ = cheerio.load(html.data);
+    const data = $.extract({
+      attendance: ".badge.btn.btn-lg.btn-danger",
+      fine: ".list-group-item.text-ellipsis:nth-child(2) > span",
+      isDetained: ".list-group-item.text-ellipsis:nth-child(2) > p",
+      name: ".media-left > button",
+      profile: [
+        {
+          selector: ".media-body:nth-of-type(2) > table > tbody > tr",
+          value: {
+            label: "td",
+            value: "td:nth-child(2)",
           },
-        ],
-        profileImage: {
-          selector: ".nav-profile > div > a > img",
-          value: "src",
         },
-      });
+      ],
+      profileImage: {
+        selector: ".nav-profile > div > a > img",
+        value: "src",
+      },
+    });
 
-      const formattedData: {
-        [key: string]: string | undefined;
-      } = {};
+    const formattedData: {
+      [key: string]: string | undefined;
+    } = {};
 
-      data.profile.forEach((iter) => {
-        const key = iter.label?.trim().slice(0, -1).trim();
-        if (key) formattedData[key] = iter.value;
-      });
+    data.profile.forEach((iter) => {
+      const key = iter.label?.trim().slice(0, -1).trim();
+      if (key) formattedData[key] = iter.value;
+    });
 
-      const info = {
-        address: formattedData["Permanent Address"],
-        branch: formattedData["Branch"],
-        contact: formattedData["Mobile No"],
-        dob: formattedData["Birth Date"],
-        email: formattedData["Email"],
-        rollNo: formattedData["University Roll No"],
-        section: formattedData["Section"],
-        userId: formattedData["Library Code"],
-        attendance: data.attendance,
-        fine: data.isDetained ? "Detained" : data.fine,
-        name: data.name,
-        profileImage: data.profileImage,
-      };
+    const info = {
+      address: formattedData["Permanent Address"],
+      branch: formattedData["Branch"],
+      contact: formattedData["Mobile No"],
+      dob: formattedData["Birth Date"],
+      email: formattedData["Email"],
+      rollNo: formattedData["University Roll No"],
+      section: formattedData["Section"],
+      userId: formattedData["Library Code"],
+      attendance: data.attendance,
+      fine: data.isDetained ? "Detained" : data.fine,
+      name: data.name,
+      profileImage: data.profileImage,
+    };
 
-      return info;
-    },
-  });
-}
+    return info;
+  },
+};

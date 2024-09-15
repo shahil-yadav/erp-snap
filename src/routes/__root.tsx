@@ -1,41 +1,45 @@
-import { Auth } from "@/components/auth/services/types";
-import { Toaster } from "@/components/ui/toaster";
-import { useTheme } from "@/hooks/useTheme";
-import { type QueryClient } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
-import { SafeArea } from "capacitor-plugin-safe-area";
-import { ReactNode, useEffect } from "react";
+import { Auth } from "@/components/auth/services/types"
+import { Toaster } from "@/components/ui/toaster"
+import { useOfflineToast } from "@/hooks/use-offline-toast"
+import { useTheme } from "@/hooks/use-theme"
+import { type QueryClient } from "@tanstack/react-query"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import { createRootRouteWithContext, Outlet } from "@tanstack/react-router"
+import { SafeArea } from "capacitor-plugin-safe-area"
+import { ReactNode, useEffect } from "react"
 
 export const Route = createRootRouteWithContext<{
-  queryClient: QueryClient;
-  auth: Auth;
+    queryClient: QueryClient
+    auth: Auth
+    isRestoring: boolean
+    connected: boolean
 }>()({
-  component: RootComponent,
-});
+    component: RootComponent,
+})
 
 function RootComponent() {
-  return (
-    <SafeAreaView>
-      <Outlet />
-      {/* <TanStackRouterDevtools /> */}
-      <ReactQueryDevtools position="bottom" />
-      <Toaster />
-    </SafeAreaView>
-  );
+    useOfflineToast()
+    return (
+        <SafeAreaView>
+            <Outlet />
+            {/* <TanStackRouterDevtools /> */}
+            <ReactQueryDevtools position="bottom" />
+            <Toaster />
+        </SafeAreaView>
+    )
 }
 
 function SafeAreaView({ children }: { children?: ReactNode }) {
-  useTheme();
-  useEffect(() => {
-    (async function () {
-      const safeAreaData = await SafeArea.getSafeAreaInsets();
-      const { insets } = safeAreaData;
-      for (const [key, value] of Object.entries(insets)) {
-        document.documentElement.style.setProperty(`--safe-area-inset-${key}`, `${value}px`);
-      }
-    })();
-  }, []);
+    useTheme()
+    useEffect(() => {
+        ;(async function () {
+            const safeAreaData = await SafeArea.getSafeAreaInsets()
+            const { insets } = safeAreaData
+            for (const [key, value] of Object.entries(insets)) {
+                document.documentElement.style.setProperty(`--safe-area-inset-${key}`, `${value}px`)
+            }
+        })()
+    }, [])
 
-  return <main>{children}</main>;
+    return <main>{children}</main>
 }
