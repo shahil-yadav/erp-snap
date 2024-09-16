@@ -1,7 +1,6 @@
 import { auth } from "@/components/auth/services/auth"
 import { ReactImage } from "@/components/image"
 import { NetworkInfo } from "@/components/network-info"
-import { onlineManager } from "@/lib/online-manager"
 import { cn } from "@/lib/utils"
 import { erp } from "@/utils/erp"
 import { useSuspenseQuery } from "@tanstack/react-query"
