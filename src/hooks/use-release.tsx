@@ -1,8 +1,8 @@
-import { App } from "@capacitor/app"
+import { useGetAppVersion } from "@/hooks/use-get-app-version"
 import { Dialog } from "@capacitor/dialog"
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query"
-import { useEffect, useState } from "react"
 import { compareVersions } from "compare-versions"
+import { useEffect } from "react"
 
 function useReleaseUpdate() {
     const { data } = useSuspenseQuery(options())
@@ -19,20 +19,8 @@ function useReleaseUpdate() {
             if (value === true) window.open(data.url)
         }
 
-        // if (data.latestVersion !== appVersion)
         if (compareVersions(appVersion, data.latestVersion) === -1) showDialog()
     }, [appVersion, data.latestVersion, data.description, data.url])
-}
-
-function useGetAppVersion() {
-    const [version, setVersion] = useState<string>()
-
-    useEffect(() => {
-        App.getInfo().then((data) => setVersion(data.version))
-        return () => {}
-    }, [])
-
-    return version
 }
 
 function options() {
