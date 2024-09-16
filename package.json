@@ -38,6 +38,8 @@
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
         "cmdk": "1.0.0",
+        "compare-versions": "^6.1.1",
+        "firebase": "^10.13.1",
         "local-storage": "^2.0.0",
         "lucide-react": "^0.436.0",
         "next-themes": "^0.3.0",
