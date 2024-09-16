@@ -1,18 +1,14 @@
 import { auth } from "@/components/auth/services/auth"
 import { Spinner } from "@/components/spinner"
 import { ConnectionStatusProvider, useConnectionStatusContext } from "@/context/connection-status"
-import { analytics } from "@/lib/firebase"
 import { routeTree } from "@/routeTree.gen.ts"
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister"
 import { QueryClient, useIsRestoring } from "@tanstack/react-query"
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client"
 import { createRouter, ErrorComponent, RouterProvider } from "@tanstack/react-router"
-import { logEvent } from "firebase/analytics"
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import "./index.css"
-
-logEvent(analytics, "exception")
 
 export const queryClient = new QueryClient({
     defaultOptions: {
