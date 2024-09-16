@@ -11,13 +11,22 @@ importers:
       '@capacitor/android':
         specifier: ^6.1.2
         version: 6.1.2(@capacitor/core@6.1.2)
+      '@capacitor/app':
+        specifier: ^6.0.1
+        version: 6.0.1(@capacitor/core@6.1.2)
       '@capacitor/core':
         specifier: ^6.1.2
         version: 6.1.2
+      '@capacitor/dialog':
+        specifier: ^6.0.1
+        version: 6.0.1(@capacitor/core@6.1.2)
       '@capacitor/ios':
         specifier: ^6.1.2
         version: 6.1.2(@capacitor/core@6.1.2)
       '@capacitor/network':
+        specifier: ^6.0.2
+        version: 6.0.2(@capacitor/core@6.1.2)
+      '@capacitor/toast':
         specifier: ^6.0.2
         version: 6.0.2(@capacitor/core@6.1.2)
       '@radix-ui/react-dialog':
@@ -278,6 +287,11 @@ packages:
     peerDependencies:
       '@capacitor/core': ^6.1.0
 
+  '@capacitor/app@6.0.1':
+    resolution: {integrity: sha512-0kXbOl7LPPMFVcAii3u/7Ps0DvXlr7dtHT97r9J1faDlgdQLQUvtGp48tjvFm48gqHI0aOPRJnTBr5JXW4ETYg==}
+    peerDependencies:
+      '@capacitor/core': ^6.0.0
+
   '@capacitor/cli@6.1.2':
     resolution: {integrity: sha512-HKCNGE0RP8U7aiEF2vg5wTivJROS8BVfu8a3yYJb1mRQvzv+czpmtHNsTWS/WukvwoxUjyjRmsNQSAACHfMTmQ==}
     engines: {node: '>=18.0.0'}
@@ -286,6 +300,11 @@ packages:
   '@capacitor/core@6.1.2':
     resolution: {integrity: sha512-xFy1/4qLFLp5WCIzIhtwUuVNNoz36+V7/BzHmLqgVJcvotc4MMjswW/TshnPQaLLujEOaLkA4h8ZJ0uoK3ImGg==}
 
+  '@capacitor/dialog@6.0.1':
+    resolution: {integrity: sha512-VyfWy4yPlFnmLFockS3HxoQL2LbWHVBC7DeuWpHVIuCUccXh46FzpVfhA9KQwsA/AM5q8gk80Z/im3Py6deMDA==}
+    peerDependencies:
+      '@capacitor/core': ^6.0.0
+
   '@capacitor/ios@6.1.2':
     resolution: {integrity: sha512-HaeW68KisBd/7TmavzPDlL2bpoDK5AjR2ZYrqU4TlGwM88GtQfvduBCAlSCj20X0w/4+rWMkseD9dAAkacjiyQ==}
     peerDependencies:
@@ -293,6 +312,11 @@ packages:
 
   '@capacitor/network@6.0.2':
     resolution: {integrity: sha512-c0aZb0vRodvUO7ugZdQfMXr7LHUgZSKaJcOfu53gwuxGuvrIUvqPvaog+GlNLp7SB4Iw74Js7cemnIqsR5yxzw==}
+    peerDependencies:
+      '@capacitor/core': ^6.0.0
+
+  '@capacitor/toast@6.0.2':
+    resolution: {integrity: sha512-kw9a4jSbP278xSB7cfXzafkRG0wIjsQ+rv+alzmrQa9IQsVwA5c3BvY3g+O/iE0uDGr7s11ZJNszUm1GkzJKyQ==}
     peerDependencies:
       '@capacitor/core': ^6.0.0
 
@@ -2971,6 +2995,10 @@ snapshots:
     dependencies:
       '@capacitor/core': 6.1.2
 
+  '@capacitor/app@6.0.1(@capacitor/core@6.1.2)':
+    dependencies:
+      '@capacitor/core': 6.1.2
+
   '@capacitor/cli@6.1.2':
     dependencies:
       '@ionic/cli-framework-output': 2.2.8
@@ -2998,11 +3026,19 @@ snapshots:
     dependencies:
       tslib: 2.7.0
 
+  '@capacitor/dialog@6.0.1(@capacitor/core@6.1.2)':
+    dependencies:
+      '@capacitor/core': 6.1.2
+
   '@capacitor/ios@6.1.2(@capacitor/core@6.1.2)':
     dependencies:
       '@capacitor/core': 6.1.2
 
   '@capacitor/network@6.0.2(@capacitor/core@6.1.2)':
+    dependencies:
+      '@capacitor/core': 6.1.2
+
+  '@capacitor/toast@6.0.2(@capacitor/core@6.1.2)':
     dependencies:
       '@capacitor/core': 6.1.2
 

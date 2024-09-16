@@ -1,5 +1,6 @@
 import { Auth } from "@/components/auth/services/types"
 import { Toaster } from "@/components/ui/toaster"
+import { useReleaseUpdate } from "@/hooks/use-release"
 import { useOfflineToast } from "@/hooks/use-offline-toast"
 import { useTheme } from "@/hooks/use-theme"
 import { type QueryClient } from "@tanstack/react-query"
@@ -19,12 +20,13 @@ export const Route = createRootRouteWithContext<{
 
 function RootComponent() {
     useOfflineToast()
+    useReleaseUpdate()
     return (
         <SafeAreaView>
             <Outlet />
-            {/* <TanStackRouterDevtools /> */}
-            <ReactQueryDevtools position="bottom" />
             <Toaster />
+
+            <ReactQueryDevtools position="bottom" />
         </SafeAreaView>
     )
 }
