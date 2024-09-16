@@ -2,6 +2,7 @@ import { App } from "@capacitor/app"
 import { Dialog } from "@capacitor/dialog"
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query"
 import { useEffect, useState } from "react"
+import { compareVersions } from "compare-versions"
 
 function useReleaseUpdate() {
     const { data } = useSuspenseQuery(options())
@@ -12,13 +13,14 @@ function useReleaseUpdate() {
 
         async function showDialog() {
             const { value } = await Dialog.confirm({
-                title: `Upgrade from ${appVersion} to ${data.latestVersion}`,
+                title: `Please upgrade from ${appVersion} to ${data.latestVersion}`,
                 message: data.description,
             })
             if (value === true) window.open(data.url)
         }
 
-        if (data.latestVersion !== appVersion) showDialog()
+        // if (data.latestVersion !== appVersion)
+        if (compareVersions(appVersion, data.latestVersion) === -1) showDialog()
     }, [appVersion, data.latestVersion, data.description, data.url])
 }
 
