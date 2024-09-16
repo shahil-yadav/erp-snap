@@ -76,7 +76,7 @@ function TimeTable() {
 }
 
 const options = {
-    queryKey: queryKeys.timeTable,
+    queryKey: ["time-table"],
     queryFn: async () => {
         const html = await erp.get(
             "https://erp.psit.ac.in/Student/MyTimeTable",
