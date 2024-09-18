@@ -38,7 +38,7 @@ const router = createRouter({
     },
 
     defaultPendingComponent: () => (
-        <div className="flex items-center justify-center h-screen-safe">
+        <div className="flex h-screen items-center justify-center">
             <div className="scale-[2]">
                 <Spinner />
             </div>
