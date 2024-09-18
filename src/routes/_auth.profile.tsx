@@ -189,7 +189,6 @@ export const profileOptions = {
             name: data.name,
             profileImage: data.profileImage,
         }
-
         return info
     },
 }
