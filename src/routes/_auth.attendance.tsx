@@ -15,7 +15,6 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
-import { html } from "@/dummy/attendance"
 import { cn } from "@/lib/utils"
 import { erp } from "@/utils/erp"
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query"

@@ -19,7 +19,7 @@ export function SignOut() {
                 <p className="mt-4 text-muted-foreground">
                     Are you sure you want to sign out of your account?
                 </p>
-                <div className="mt-6 flex flex-col gap-2 sm:flex-row">
+                <div className="mt-6 flex flex-col gap-4 sm:flex-row">
                     <button
                         onClick={() => {
                             queryClient.removeQueries()
