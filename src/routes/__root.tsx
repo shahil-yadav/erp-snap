@@ -25,7 +25,6 @@ function RootComponent() {
         <SafeAreaView>
             <Outlet />
             <Toaster />
-
             <ReactQueryDevtools position="bottom" />
         </SafeAreaView>
     )
