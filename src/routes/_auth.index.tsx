@@ -12,19 +12,19 @@ function Homepage() {
         <main className="">
             <section className="space-y-5">
                 <div>
-                    <p>{greetingTime(new Date())}</p>
+                    <p className="text-lg font-semibold">{greetingTime(new Date())}</p>
                     <p>Hope you have a great day today</p>
                 </div>
                 <div className="flex justify-between">
                     <div className="space-y-5 self-end">
-                        <div className="flex items-center gap-2">
+                        {/* <div className="flex items-center gap-2">
                             <a href="https://www.github.com/shahil-yadav/erp-snap">
                                 <img className="h-8 w-10" src="images/github.png" alt="Github" />
                             </a>
                             <a href="https://www.linkedin.com/in/shahilyadav">
                                 <img className="size-10" src="images/linkedin.png" alt="LinkedIn" />
                             </a>
-                        </div>
+                        </div> */}
                         <p className="text-xs">What do you want to do today ?</p>
                     </div>
                     <div className="">

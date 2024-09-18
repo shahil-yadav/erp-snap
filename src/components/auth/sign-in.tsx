@@ -9,8 +9,6 @@ import { useRouter } from "@tanstack/react-router"
 import { Eye, EyeOff, LogIn } from "lucide-react"
 import { FormEvent, useState } from "react"
 import { loginIntoERP } from "./services/loginIntoERP"
-import { logEvent } from "firebase/analytics"
-import { analytics } from "@/lib/firebase"
 
 // const useCredentials = () => ({
 //   username: import.meta.env.VITE_APP_USERNAME,
@@ -117,7 +115,6 @@ function useAuthenticateMutation() {
         onSuccess: (data) => {
             auth.login(data.username, data.password)
             router.invalidate()
-            logEvent(analytics, "login")
             toast({
                 title: "Login successfull",
                 // description: "",
