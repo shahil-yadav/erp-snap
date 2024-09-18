@@ -1,10 +1,11 @@
 import { auth } from "@/components/auth/services/auth"
 import { ReactImage } from "@/components/image"
-import { Body, Footer, Layout, Navbar } from "@/components/layout"
-import { Watermark } from "@/components/watermark"
+import { Body, Layout, Navbar } from "@/components/layout"
+import { analytics } from "@/lib/firebase"
 import { queryClient } from "@/main"
 import { profileOptions } from "@/routes/_auth.profile"
 import { createFileRoute, Link, Outlet, redirect, useMatchRoute } from "@tanstack/react-router"
+import { logEvent } from "firebase/analytics"
 import { CircleArrowLeft } from "lucide-react"
 import { useEffect, useState } from "react"
 
@@ -28,7 +29,10 @@ export const Route = createFileRoute("/_auth")({
 
 function Root() {
     const profileImage = useAsync<string | undefined>(
-        queryClient.ensureQueryData(profileOptions).then((res) => res.profileImage),
+        queryClient.ensureQueryData(profileOptions).then((res) => {
+            logEvent(analytics, "login", { name: res.name })
+            return res.profileImage
+        }),
     )
 
     return (
@@ -51,9 +55,9 @@ function Root() {
                 <Outlet />
             </Body>
 
-            <Footer>
+            {/* <Footer>
                 <Watermark />
-            </Footer>
+            </Footer> */}
         </Layout>
     )
 }
