@@ -1,9 +1,11 @@
 import { auth } from "@/components/auth/services/auth"
 import { ReactImage } from "@/components/image"
 import { Body, Layout, Navbar } from "@/components/layout"
+import { Spinner } from "@/components/spinner"
 import { analytics } from "@/lib/firebase"
 import { queryClient } from "@/main"
 import { profileOptions } from "@/routes/_auth.profile"
+import { useIsFetching } from "@tanstack/react-query"
 import { createFileRoute, Link, Outlet, redirect, useMatchRoute } from "@tanstack/react-router"
 import { logEvent } from "firebase/analytics"
 import { CircleArrowLeft } from "lucide-react"
@@ -34,14 +36,15 @@ function Root() {
             return res.profileImage
         }),
     )
-
+    const isFetching = useIsFetching()
     return (
         <Layout>
             <Navbar>
                 <Link to="/">
-                    <div className="flex">
+                    <div className="relative flex">
                         <h1 className="font-impact text-5xl">ERP PSIT</h1>
                         <h2 className="-m-[2px] self-end text-xs">Unofficial</h2>
+                        <div className="absolute right-2 top-2">{!!isFetching && <Spinner />}</div>
                     </div>
                 </Link>
                 <Link to="/login">

@@ -81,8 +81,8 @@ function AbsentRecord({
                     <ScrollArea className="whitespace-nowrap rounded-md">
                         <div className="flex w-max gap-2 pb-6">
                             {absent.map((period) => (
-                                <div className="flex shrink-0 items-center justify-center rounded-md bg-rose-600 p-4 text-lg font-semibold text-white">
-                                    Abs ~ {period}
+                                <div className="flex shrink-0 items-center justify-center rounded-md bg-rose-500 p-2 text-lg text-white dark:bg-rose-700">
+                                    ABS ~ {period}
                                 </div>
                             ))}
                         </div>
