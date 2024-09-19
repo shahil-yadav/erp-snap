@@ -58,7 +58,7 @@ function Attendance() {
                 ) : (
                     <Chart oaa={oaa} present={present} absent={absent} />
                 )}
-                <AbsentRecord record={tableDetails} />
+                {tableDetails.length > 0 && <AbsentRecord record={tableDetails} />}
             </div>
         </main>
     )
