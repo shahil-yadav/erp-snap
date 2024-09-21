@@ -1,3 +1,4 @@
+import { SplashScreen } from "@capacitor/splash-screen"
 import { auth } from "@/components/auth/services/auth"
 import { Spinner } from "@/components/spinner"
 import { ConnectionStatusProvider, useConnectionStatusContext } from "@/context/connection-status"
@@ -9,6 +10,10 @@ import { createRouter, ErrorComponent, RouterProvider } from "@tanstack/react-ro
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import "./index.css"
+
+await SplashScreen.show({
+    autoHide: false,
+})
 
 export const queryClient = new QueryClient({
     defaultOptions: {

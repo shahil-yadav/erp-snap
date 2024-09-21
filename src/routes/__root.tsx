@@ -1,3 +1,4 @@
+import { SplashScreen } from "@capacitor/splash-screen"
 import { Auth } from "@/components/auth/services/types"
 import { Toaster } from "@/components/ui/toaster"
 import { useReleaseUpdate } from "@/hooks/use-release"
@@ -18,9 +19,19 @@ export const Route = createRootRouteWithContext<{
     component: RootComponent,
 })
 
+function useDisplaySplashScreen() {
+    useEffect(() => {
+        ;(async () => {
+            await SplashScreen.hide()
+        })()
+    }, [])
+}
+
 function RootComponent() {
     useOfflineToast()
     useReleaseUpdate()
+    useDisplaySplashScreen()
+
     return (
         <SafeAreaView>
             <Outlet />
