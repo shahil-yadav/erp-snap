@@ -48,19 +48,13 @@ function Root() {
                     </div>
                 </Link>
                 <Link to="/login">
-                    <ReactImage src={profileImage} className="h-14 w-10" />
+                    <ReactImage src={profileImage} className="h-auto w-12 max-w-full rounded-md" />
                 </Link>
             </Navbar>
-
             <Back />
-
             <Body>
                 <Outlet />
             </Body>
-
-            {/* <Footer>
-                <Watermark />
-            </Footer> */}
         </Layout>
     )
 }
