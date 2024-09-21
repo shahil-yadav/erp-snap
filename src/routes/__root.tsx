@@ -22,7 +22,9 @@ export const Route = createRootRouteWithContext<{
 function useDisplaySplashScreen() {
     useEffect(() => {
         ;(async () => {
-            await SplashScreen.hide()
+            await SplashScreen.show({
+                autoHide: true,
+            })
         })()
     }, [])
 }

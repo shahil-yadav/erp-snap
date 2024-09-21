@@ -19,6 +19,10 @@ export function SignOut() {
                 <p className="mt-4 text-muted-foreground">
                     Are you sure you want to sign out of your account?
                 </p>
+                <p className="text-destructive">
+                    This will reset the state of the application and the saved profile would be
+                    deleted.
+                </p>
                 <div className="mt-6 flex flex-col gap-4 sm:flex-row">
                     <button
                         onClick={() => {
