@@ -1,4 +1,6 @@
 # 🎉 `erp-snap`
+![Thumbnail1](https://github.com/user-attachments/assets/beb6c87a-41be-47cd-afd2-8902c25f4b4e)
+![Thumbnail2](https://github.com/user-attachments/assets/b93f6ac2-f58b-4566-af95-135d5ec8f024)
 
 ## 🔐 Important Security Note
 
