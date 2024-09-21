@@ -1,3 +1,5 @@
+/// <reference types="@capacitor/splash-screen" />
+
 import type { CapacitorConfig } from "@capacitor/cli"
 
 const config: CapacitorConfig = {
@@ -10,6 +12,9 @@ const config: CapacitorConfig = {
         },
         CapacitorCookies: {
             enabled: true,
+        },
+        SplashScreen: {
+            androidScaleType: "CENTER_CROP",
         },
     },
     // server: {
