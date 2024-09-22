@@ -9,7 +9,7 @@
 
 Your privacy matters to us! Here's the scoop on how we handle your login info:
 
--   I don't store your username and password on any server. 🛜❌
+-   We don't store your username and password on any server. 🛜❌
 -   Your credentials are securely transmitted between your device and the college server. 🔒🔀
 -   This keeps your sensitive details safe! 💪
 
