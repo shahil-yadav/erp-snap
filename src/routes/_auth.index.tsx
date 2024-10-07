@@ -1,6 +1,6 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { analytics } from "@/lib/firebase"
-import { createFileRoute, Link } from "@tanstack/react-router"
+import { Link, createFileRoute } from "@tanstack/react-router"
 import { logEvent } from "firebase/analytics"
 
 export const Route = createFileRoute("/_auth/")({

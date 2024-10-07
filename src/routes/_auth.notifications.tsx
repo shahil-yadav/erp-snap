@@ -3,7 +3,7 @@ import { NetworkInfo } from "@/components/network-info"
 import { Separator } from "@/components/ui/separator"
 import { erp } from "@/utils/erp"
 import { useSuspenseQuery } from "@tanstack/react-query"
-import { createFileRoute, Link } from "@tanstack/react-router"
+import { Link, createFileRoute } from "@tanstack/react-router"
 import * as cheerio from "cheerio"
 import { Bell } from "lucide-react"
 

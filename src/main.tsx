@@ -5,7 +5,7 @@ import { routeTree } from "@/routeTree.gen.ts"
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister"
 import { QueryClient, useIsRestoring } from "@tanstack/react-query"
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client"
-import { createRouter, ErrorComponent, RouterProvider } from "@tanstack/react-router"
+import { ErrorComponent, RouterProvider, createRouter } from "@tanstack/react-router"
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import "./index.css"
@@ -13,7 +13,7 @@ import "./index.css"
 export const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            gcTime: 24 * 60 * 60 * 1000, // 24 hrs -> ms
+            gcTime: Infinity,
             staleTime: 10 * 60 * 1000, // 10 minutes -> ms
             // staleTime: 0,
             retry: 0,

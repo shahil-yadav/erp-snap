@@ -6,7 +6,7 @@ import { useOfflineToast } from "@/hooks/use-offline-toast"
 import { useTheme } from "@/hooks/use-theme"
 import { type QueryClient } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import { createRootRouteWithContext, Outlet } from "@tanstack/react-router"
+import { Outlet, createRootRouteWithContext } from "@tanstack/react-router"
 import { SafeArea } from "capacitor-plugin-safe-area"
 import { ReactNode, useEffect } from "react"
 
