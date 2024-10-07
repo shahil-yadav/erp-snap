@@ -1,92 +1,11 @@
 import { auth } from "@/components/auth/services/auth"
-import { Days } from "@/components/days-combobox"
-import { NetworkInfo } from "@/components/network-info"
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
 import { erp } from "@/utils/erp"
-import { queryOptions, skipToken, useSuspenseQuery } from "@tanstack/react-query"
-import { createFileRoute } from "@tanstack/react-router"
 import * as cheerio from "cheerio"
-import { useState } from "react"
-
-export const Route = createFileRoute("/_auth/time-table")({
-    component: TimeTable,
-    loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(options()),
-})
-
-function TimeTable() {
-    const { data, dataUpdatedAt, error, isError, isSuccess, isFetching, isPaused } =
-        useSuspenseQuery(options())
-    const [day, setDay] = useState(data.days[new Date().getDay()])
-
-    console.log(queryStatusAtNight(), "query_status")
-
-    return (
-        <div className="space-y-5">
-            <NetworkInfo
-                dataUpdatedAt={dataUpdatedAt}
-                error={error}
-                isError={isError}
-                isLoading={isFetching}
-                isSuccess={isSuccess}
-                isPaused={isPaused}
-            />
-            {queryStatusAtNight() && (
-                <div className="rounded-md bg-secondary p-5">
-                    <p>
-                        Serving the{" "}
-                        <span className="font-semibold dark:text-green-500">cache data </span>
-                        of time-table, you can refresh it in the morning at{" "}
-                        <span className="dark:text-green-500">5 am.</span>
-                    </p>
-                </div>
-            )}
-            <Table className="">
-                <TableCaption>Timetable</TableCaption>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead className="w-1/2">Timings</TableHead>
-                        <TableHead>
-                            <Days value={day} setValue={setDay} />
-                        </TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {data.table.map((entry) => (
-                        <TableRow key={entry.timing}>
-                            <TableCell className="font-medium">{entry.timing}</TableCell>
-                            {day ? (
-                                <TableCell className="">
-                                    {entry[day] !== "" ? entry[day] : "❌"}
-                                </TableCell>
-                            ) : (
-                                <TableCell>⁉️</TableCell>
-                            )}
-                        </TableRow>
-                    ))}
-                </TableBody>
-                <TableFooter>
-                    {/* <TableRow>
-                  <TableCell className="text-right" colSpan={2}>
-                  </TableCell>
-               </TableRow> */}
-                </TableFooter>
-            </Table>
-        </div>
-    )
-}
+import { queryOptions, skipToken } from "@tanstack/react-query"
+import { queryStatusAtNight } from "@/routes/_auth/time-table"
 
 function options() {
     return queryOptions({
-        queryKey: ["time-table"],
         queryFn:
             queryStatusAtNight() === false
                 ? async () => {
@@ -145,15 +64,21 @@ function options() {
                           ...formattedData.weeks.arr
                               .filter((entry) => entry !== undefined)
                               .reduce((prev, day) => {
-                                  if (day !== undefined)
+                                  let periods = formattedData.lectures[day][_].replace(
+                                      /(\r\n|\n|\r|\t)/gm,
+                                      "",
+                                  )
+                                  const regex = /\[(.*?)\]/g
+                                  periods = Array.from(periods.matchAll(regex), (m) => m[1])
+                                      .map((val) => val.trim())
+                                      .reverse()
+
+                                  if (day !== undefined) {
                                       return {
                                           ...prev,
-                                          [day]: formattedData.lectures[day][_].replace(
-                                              /(\r\n|\n|\r|\t)/gm,
-                                              "",
-                                          ),
+                                          [day]: periods,
                                       }
-                                  else {
+                                  } else {
                                       return {
                                           ...prev,
                                       }
@@ -170,12 +95,8 @@ function options() {
                       }
                   }
                 : skipToken,
+        queryKey: ["time-table"],
     })
 }
 
-function queryStatusAtNight() {
-    const time = new Date().getHours()
-    /** Disable at 11 o'clock */
-    if (time >= 23 || time < 5) return true
-    return false
-}
+export { options }

@@ -14,10 +14,10 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as AuthIndexImport } from './routes/_auth.index'
-import { Route as AuthTimeTableImport } from './routes/_auth.time-table'
 import { Route as AuthProfileImport } from './routes/_auth.profile'
 import { Route as AuthNotificationsImport } from './routes/_auth.notifications'
-import { Route as AuthAttendanceImport } from './routes/_auth.attendance'
+import { Route as AuthTimeTableIndexImport } from './routes/_auth/time-table/index'
+import { Route as AuthAttendanceIndexImport } from './routes/_auth/attendance/index'
 
 // Create/Update Routes
 
@@ -36,11 +36,6 @@ const AuthIndexRoute = AuthIndexImport.update({
   getParentRoute: () => AuthRoute,
 } as any)
 
-const AuthTimeTableRoute = AuthTimeTableImport.update({
-  path: '/time-table',
-  getParentRoute: () => AuthRoute,
-} as any)
-
 const AuthProfileRoute = AuthProfileImport.update({
   path: '/profile',
   getParentRoute: () => AuthRoute,
@@ -51,8 +46,13 @@ const AuthNotificationsRoute = AuthNotificationsImport.update({
   getParentRoute: () => AuthRoute,
 } as any)
 
-const AuthAttendanceRoute = AuthAttendanceImport.update({
-  path: '/attendance',
+const AuthTimeTableIndexRoute = AuthTimeTableIndexImport.update({
+  path: '/time-table/',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthAttendanceIndexRoute = AuthAttendanceIndexImport.update({
+  path: '/attendance/',
   getParentRoute: () => AuthRoute,
 } as any)
 
@@ -74,13 +74,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
-    '/_auth/attendance': {
-      id: '/_auth/attendance'
-      path: '/attendance'
-      fullPath: '/attendance'
-      preLoaderRoute: typeof AuthAttendanceImport
-      parentRoute: typeof AuthImport
-    }
     '/_auth/notifications': {
       id: '/_auth/notifications'
       path: '/notifications'
@@ -95,18 +88,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthProfileImport
       parentRoute: typeof AuthImport
     }
-    '/_auth/time-table': {
-      id: '/_auth/time-table'
-      path: '/time-table'
-      fullPath: '/time-table'
-      preLoaderRoute: typeof AuthTimeTableImport
-      parentRoute: typeof AuthImport
-    }
     '/_auth/': {
       id: '/_auth/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AuthIndexImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/attendance/': {
+      id: '/_auth/attendance/'
+      path: '/attendance'
+      fullPath: '/attendance'
+      preLoaderRoute: typeof AuthAttendanceIndexImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/time-table/': {
+      id: '/_auth/time-table/'
+      path: '/time-table'
+      fullPath: '/time-table'
+      preLoaderRoute: typeof AuthTimeTableIndexImport
       parentRoute: typeof AuthImport
     }
   }
@@ -116,11 +116,11 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   AuthRoute: AuthRoute.addChildren({
-    AuthAttendanceRoute,
     AuthNotificationsRoute,
     AuthProfileRoute,
-    AuthTimeTableRoute,
     AuthIndexRoute,
+    AuthAttendanceIndexRoute,
+    AuthTimeTableIndexRoute,
   }),
   LoginRoute,
 })
@@ -140,19 +140,15 @@ export const routeTree = rootRoute.addChildren({
     "/_auth": {
       "filePath": "_auth.tsx",
       "children": [
-        "/_auth/attendance",
         "/_auth/notifications",
         "/_auth/profile",
-        "/_auth/time-table",
-        "/_auth/"
+        "/_auth/",
+        "/_auth/attendance/",
+        "/_auth/time-table/"
       ]
     },
     "/login": {
       "filePath": "login.tsx"
-    },
-    "/_auth/attendance": {
-      "filePath": "_auth.attendance.tsx",
-      "parent": "/_auth"
     },
     "/_auth/notifications": {
       "filePath": "_auth.notifications.tsx",
@@ -162,12 +158,16 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_auth.profile.tsx",
       "parent": "/_auth"
     },
-    "/_auth/time-table": {
-      "filePath": "_auth.time-table.tsx",
-      "parent": "/_auth"
-    },
     "/_auth/": {
       "filePath": "_auth.index.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/attendance/": {
+      "filePath": "_auth/attendance/index.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/time-table/": {
+      "filePath": "_auth/time-table/index.tsx",
       "parent": "/_auth"
     }
   }
