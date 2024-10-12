@@ -23,8 +23,8 @@ export default [
             rules: {
                 ...reactHooks.configs.recommended.rules,
                 "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
-                "sort-imports": ["warn"],
-                "sort-keys": ["warn", "asc", { caseSensitive: true, natural: false, minKeys: 2 }],
+                // "sort-imports": ["warn"],
+                // "sort-keys": ["warn", "asc", { caseSensitive: true, natural: false, minKeys: 2 }],
             },
         },
     ),
