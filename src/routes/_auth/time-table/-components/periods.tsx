@@ -9,19 +9,9 @@ function Periods({ day }: { day: WeeksType }) {
     return data.table.map((entry) => (
         <TableRow key={entry.timing}>
             <TableCell className="font-medium">{entry.timing}</TableCell>
-            {day ? (
-                entry[day].length === 0 ? (
-                    <TableCell className="text-center">❌</TableCell>
-                ) : (
-                    <TableCell className="space-x-2">
-                        {entry[day].map((period) => (
-                            <span>{period},</span>
-                        ))}
-                    </TableCell>
-                )
-            ) : (
-                <TableCell>⁉️</TableCell>
-            )}
+            <TableCell>{entry[day].class ?? "⁉️"}</TableCell>
+            <TableCell>{entry[day].faculty ?? "⁉️"}</TableCell>
+            <TableCell>{entry[day].subject ?? "⁉️"}</TableCell>
         </TableRow>
     ))
 }

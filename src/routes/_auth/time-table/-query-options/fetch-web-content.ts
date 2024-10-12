@@ -1,6 +1,4 @@
 import { html as TimeTableResponse } from "@/dummy/time-table"
-import { auth } from "@/components/auth/services/auth"
-import { erp } from "@/utils/erp"
 import * as cheerio from "cheerio"
 
 export const fetchWebContent = async () => {
