@@ -1,100 +1,60 @@
-import { auth } from "@/components/auth/services/auth"
-import { erp } from "@/utils/erp"
-import * as cheerio from "cheerio"
+import { convertScrapedData } from "@/routes/_auth/time-table/-query-options/convert-scraped-data"
+import { fetchWebContent } from "@/routes/_auth/time-table/-query-options/fetch-web-content"
+import { queryStatusAtNight } from "@/routes/_auth/time-table/-utils/query-status-at-night"
 import { queryOptions, skipToken } from "@tanstack/react-query"
-import { queryStatusAtNight } from "@/routes/_auth/time-table"
+import { z } from "zod"
+
+// TODO Check this issue on git (zod)
+/**
+ * intersection between object() and record() parsing fails #2195
+ * https://github.com/colinhacks/zod/issues/2195
+ * z.record(
+    z.enum(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]),
+    z.array(z.string())),
+ */
+export const tableSchema = z.array(
+    z.object({
+        Friday: z.string(),
+        Monday: z.string(),
+        Saturday: z.string(),
+        Wednesday: z.string(),
+        Thursday: z.string(),
+        Tuesday: z.string(),
+        timing: z.string(),
+    }),
+)
+
+const daysSchema = z.object({
+    1: z.literal("Monday"),
+    2: z.literal("Tuesday"),
+    3: z.literal("Wednesday"),
+    4: z.literal("Thursday"),
+    5: z.literal("Friday"),
+    6: z.literal("Saturday"),
+})
 
 function options() {
     return queryOptions({
         queryFn:
             queryStatusAtNight() === false
                 ? async () => {
-                      const html = await erp.get(
-                          "https://erp.psit.ac.in/Student/MyTimeTable",
-                          auth.username,
-                          auth.password,
-                      )
+                      const json = await fetchWebContent()
+                      const { table, weeks } = convertScrapedData(json)
 
-                      const $ = cheerio.load(html.data)
-                      const data = $.extract({
-                          time: [
-                              {
-                                  selector:
-                                      "#content > div:nth-child(4) > div > div.panel.panel-inverse > div.panel-body > div > table > thead > tr > th > center",
-                              },
-                          ],
-                          weeks: [
-                              {
-                                  selector:
-                                      "#content > div:nth-child(4) > div > div.panel.panel-inverse > div.panel-body > div > table > tbody > tr",
-                                  value: {
-                                      day: "td:nth-child(1)",
-                                      periods: [{ selector: "td:nth-child(n+2)" }],
-                                  },
-                              },
-                          ],
-                      })
+                      /** Zod parsing of table schema */
+                      const isTableParsed = tableSchema.safeParse(table)
+                      if (!isTableParsed.success) throw new Error(isTableParsed.error.message)
 
-                      const formattedData = {
-                          timings: data.time.map((val) => val.slice(3)),
-                          // weeks: data.weeks.map((entry) => entry.day),
-                          weeks: {
-                              object: data.weeks.reduce(
-                                  (prevObject, week, idx) => ({
-                                      ...prevObject,
-                                      [idx + 1]: week.day,
-                                  }),
-                                  {},
-                              ),
-                              arr: data.weeks.map((entry) => entry.day),
-                          },
-                          lectures: data.weeks
-                              .filter((entry) => entry.day && entry.periods)
-                              .reduce(
-                                  (prevObject, lecture) => ({
-                                      ...prevObject,
-                                      [lecture.day as string]: lecture.periods,
-                                  }),
-                                  {},
-                              ) as { [index: string]: string },
-                      }
-
-                      const table = formattedData.timings.map((timing, _) => ({
-                          timing,
-                          ...formattedData.weeks.arr
-                              .filter((entry) => entry !== undefined)
-                              .reduce((prev, day) => {
-                                  let periods = formattedData.lectures[day][_].replace(
-                                      /(\r\n|\n|\r|\t)/gm,
-                                      "",
-                                  )
-                                  const regex = /\[(.*?)\]/g
-                                  periods = Array.from(periods.matchAll(regex), (m) => m[1])
-                                      .map((val) => val.trim())
-                                      .reverse()
-
-                                  if (day !== undefined) {
-                                      return {
-                                          ...prev,
-                                          [day]: periods,
-                                      }
-                                  } else {
-                                      return {
-                                          ...prev,
-                                      }
-                                  }
-                              }, {}),
-                      })) as unknown as {
-                          timing: string
-                          [index: string]: string
-                      }[]
+                      const isDaysParsed = daysSchema.safeParse(weeks)
+                      if (!isDaysParsed.success) throw new Error(isDaysParsed.error.message)
 
                       return {
-                          table,
-                          days: formattedData.weeks.object as { [key: number]: string },
+                          days: isDaysParsed.data,
+                          table: isTableParsed.data,
                       }
                   }
                 : skipToken,
+
         queryKey: ["time-table"],
     })
 }
