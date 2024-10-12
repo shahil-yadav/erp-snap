@@ -1,15 +1,15 @@
-import { html as TimeTableResponse } from "@/dummy/time-table"
+// import { html as TimeTableResponse } from "@/dummy/time-table"
+import { auth } from "@/components/auth/services/auth"
+import { erp } from "@/utils/erp"
 import * as cheerio from "cheerio"
 
 export const fetchWebContent = async () => {
-    // const html = await erp.get(
-    //     "https://erp.psit.ac.in/Student/MyTimeTable",
-    //     auth.username,
-    //     auth.password,
-    // )
-    const html = {
-        data: TimeTableResponse,
-    }
+    const html = await erp.get(
+        "https://erp.psit.ac.in/Student/MyTimeTable",
+        auth.username,
+        auth.password,
+    )
+
     const $ = cheerio.load(html.data)
     const data = $.extract({
         time: [
