@@ -26,27 +26,30 @@ const TimeTable = () => {
         )
 
     return (
-        <Table>
-            <TableCaption>Timetable</TableCaption>
-            <TableHeader>
+        <>
+            <Days value={day} setValue={setDay} />
+            <Table>
+                <TableCaption>Timetable</TableCaption>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Timings</TableHead>
+                        <TableHead>Class</TableHead>
+                        <TableHead>Faculty</TableHead>
+                        <TableHead>Subject</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    <Periods day={day} />
+                </TableBody>
+                {/* <TableFooter>
                 <TableRow>
-                    <TableHead className="w-1/3">Timings</TableHead>
-                    <TableHead>
-                        <Days value={day} setValue={setDay} />
-                    </TableHead>
+                <TableCell className="text-center" colSpan={2}>
+                Timetable
+                </TableCell>
                 </TableRow>
-            </TableHeader>
-            <TableBody>
-                <Periods day={day} />
-            </TableBody>
-            {/* <TableFooter>
-                <TableRow>
-                    <TableCell className="text-center" colSpan={2}>
-                        Timetable
-                    </TableCell>
-                </TableRow>
-            </TableFooter> */}
-        </Table>
+                </TableFooter> */}
+            </Table>
+        </>
     )
 }
 

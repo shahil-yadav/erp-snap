@@ -1,13 +1,19 @@
 import { ExtractedMap } from "node_modules/cheerio/dist/esm/api/extract"
 import { z } from "zod"
 
+export const entrySchema = z.object({
+    class: z.string().optional(),
+    faculty: z.string().optional(),
+    subject: z.string().optional(),
+})
+
 const lecturesSchema = z.object({
-    Monday: z.array(z.string()),
-    Tuesday: z.array(z.string()),
-    Wednesday: z.array(z.string()),
-    Thursday: z.array(z.string()),
-    Friday: z.array(z.string()),
-    Saturday: z.array(z.string()),
+    Monday: z.array(entrySchema),
+    Tuesday: z.array(entrySchema),
+    Wednesday: z.array(entrySchema),
+    Thursday: z.array(entrySchema),
+    Friday: z.array(entrySchema),
+    Saturday: z.array(entrySchema),
 })
 
 const weekSchema = z.array(
@@ -31,15 +37,23 @@ export const convertScrapedData = (data: {
         if (lecture.day !== undefined) {
             lecture.periods = lecture.periods.map((period) => {
                 period = period.replace(/(\n|\t)/g, "")
-                const regex = /\[(.*?)\]/g
-                period = Array.from(period.matchAll(regex), (data) => data[1])
-                    .map((data) => data.trim())
-                    .join(", ")
                 return period
             })
+
             return {
                 ...prevObject,
-                [lecture.day]: lecture.periods,
+                [lecture.day]: lecture.periods.map((lecture) => {
+                    const regex = /\[(.*?)\]/g
+                    const arr = Array.from(lecture.matchAll(regex), (data) => data[1]).map((val) =>
+                        val.trim(),
+                    )
+
+                    return {
+                        faculty: arr[0],
+                        subject: arr[1],
+                        class: arr[2],
+                    }
+                }),
             }
         }
         return { ...prevObject }

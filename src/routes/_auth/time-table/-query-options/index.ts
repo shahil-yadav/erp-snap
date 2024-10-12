@@ -1,4 +1,7 @@
-import { convertScrapedData } from "@/routes/_auth/time-table/-query-options/convert-scraped-data"
+import {
+    convertScrapedData,
+    entrySchema,
+} from "@/routes/_auth/time-table/-query-options/convert-scraped-data"
 import { fetchWebContent } from "@/routes/_auth/time-table/-query-options/fetch-web-content"
 import { queryStatusAtNight } from "@/routes/_auth/time-table/-utils/query-status-at-night"
 import { queryOptions, skipToken } from "@tanstack/react-query"
@@ -14,12 +17,12 @@ import { z } from "zod"
  */
 export const tableSchema = z.array(
     z.object({
-        Friday: z.string(),
-        Monday: z.string(),
-        Saturday: z.string(),
-        Wednesday: z.string(),
-        Thursday: z.string(),
-        Tuesday: z.string(),
+        Monday: entrySchema,
+        Tuesday: entrySchema,
+        Wednesday: entrySchema,
+        Thursday: entrySchema,
+        Friday: entrySchema,
+        Saturday: entrySchema,
         timing: z.string(),
     }),
 )
