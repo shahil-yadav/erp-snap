@@ -1,31 +1,62 @@
-import AppBar from "@mui/base/"
+"use client"
+
+import { Sitemark } from "@/icons/sitemark"
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded"
+import MenuIcon from "@mui/icons-material/Menu"
+import { alpha, AppBar, Container, styled, Toolbar, Typography } from "@mui/material"
+import Box from "@mui/material/Box"
+import Button from "@mui/material/Button"
+import Divider from "@mui/material/Divider"
+import Drawer from "@mui/material/Drawer"
+import IconButton from "@mui/material/IconButton"
+import MenuItem from "@mui/material/MenuItem"
+import Link from "next/link"
+import React from "react"
+
+const StyledToolbar = styled(Toolbar)(({ theme }) => ({
+   display: "flex",
+   alignItems: "center",
+   justifyContent: "space-between",
+   flexShrink: 0,
+   borderRadius: `calc(${theme.shape.borderRadius}px + 8px)`,
+   backdropFilter: "blur(24px)",
+   border: "1px solid",
+   borderColor: theme.palette.divider,
+   backgroundColor: alpha(theme.palette.background.default, 0.4),
+   boxShadow: theme.shadows[1],
+   padding: "8px 12px",
+}))
+
+const links = [
+   { label: "Home", to: "/" },
+   { label: "Resources", to: "/" },
+   { label: "Downloads", to: "/downloads" },
+]
 
 export const Navbar = () => {
+   const [open, setOpen] = React.useState(false)
+
+   const toggleDrawer = (newOpen: boolean) => () => {
+      setOpen(newOpen)
+   }
+
    return (
-      <AppBar position="fixed" sx={{ boxShadow: 0, bgcolor: "transparent", backgroundImage: "none", mt: 10 }}>
+      <AppBar position="fixed" sx={{ boxShadow: 0, bgcolor: "transparent", backgroundImage: "none", mt: 5 }}>
          <Container maxWidth="lg">
             <StyledToolbar variant="dense" disableGutters>
                <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center", px: 0 }}>
-                  <Sitemark />
+                  <Button color="primary" variant="text" size="small">
+                     <Typography sx={{ mr: 1 }} variant="button">
+                        Open sourced by
+                     </Typography>
+                     <Sitemark />
+                  </Button>
                   <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                     <Button variant="text" color="info" size="small">
-                        Features
-                     </Button>
-                     <Button variant="text" color="info" size="small">
-                        Testimonials
-                     </Button>
-                     <Button variant="text" color="info" size="small">
-                        Highlights
-                     </Button>
-                     <Button variant="text" color="info" size="small">
-                        Pricing
-                     </Button>
-                     <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-                        FAQ
-                     </Button>
-                     <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-                        Blog
-                     </Button>
+                     {links.map((link) => (
+                        <Button key={link.label} variant="text" color="info" size="small">
+                           <Link href={link.to}>{link.label}</Link>
+                        </Button>
+                     ))}
                   </Box>
                </Box>
                <Box
@@ -60,12 +91,11 @@ export const Navbar = () => {
                            </IconButton>
                         </Box>
                         <Divider sx={{ my: 3 }} />
-                        <MenuItem>Features</MenuItem>
-                        <MenuItem>Testimonials</MenuItem>
-                        <MenuItem>Highlights</MenuItem>
-                        <MenuItem>Pricing</MenuItem>
-                        <MenuItem>FAQ</MenuItem>
-                        <MenuItem>Blog</MenuItem>
+                        {links.map((link) => (
+                           <MenuItem key={link.label}>
+                              <Link href={link.to}>{link.label}</Link>
+                           </MenuItem>
+                        ))}
                         <MenuItem>
                            <Button color="primary" variant="contained" fullWidth>
                               Sign up
