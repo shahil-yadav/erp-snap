@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/navbar"
 import theme from "@/theme"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Container } from "@mui/material"
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter"
 import { ThemeProvider } from "@mui/material/styles"
@@ -33,6 +34,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
                <App>{props.children}</App>
             </AppRouterCacheProvider>
             <Analytics />
+            <SpeedInsights />
          </body>
       </html>
    )
