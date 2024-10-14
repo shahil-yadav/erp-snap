@@ -1,6 +1,7 @@
+import { error } from "console"
 import { z } from "zod"
 
-const schema = z.array(
+export const schema = z.array(
    z.object({
       author: z.object({
          login: z.string(),
@@ -20,22 +21,22 @@ const schema = z.array(
 )
 
 function getTimeDifference(data: string) {
-   const ms = new Date() - new Date(data)
+   const ms = new Date().getTime() - new Date(data).getTime()
    const days = ms / (1000 * 60 * 60 * 24)
    const weeks = Math.floor(days / 7)
    return weeks
 }
 
-export async function GET() {
+async function fetchAllGithubReleases() {
    const json = await fetch(process.env.VCS_RELEASE_URL).then((data) => data.json())
 
    const isParsed = schema.safeParse(json)
    if (!isParsed.success) {
-      return Response.json({ error: isParsed.error })
+      throw new Error(isParsed.error.message)
    }
    const releases = isParsed.data
 
-   const data = releases.map((release, index) => ({
+   const data: IRelease[] = releases.map((release, index) => ({
       author: { name: release.author.login, image: release.author.avatar_url },
       body: release.body,
       downloadUrl: release.assets[0].browser_download_url,
@@ -46,5 +47,18 @@ export async function GET() {
       version: release.tag_name,
    }))
 
-   return Response.json(data)
+   return data
 }
+
+export interface IRelease {
+   author: { name: string; image: string }
+   body: string
+   downloadUrl: string
+   id: number
+   isLatest: boolean
+   name: string
+   releasedDate: string
+   version: string
+}
+
+export { fetchAllGithubReleases }

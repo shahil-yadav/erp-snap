@@ -29,7 +29,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 
 const links = [
    { label: "Home", to: "/" },
-   { label: "Resources", to: "/" },
+   // { label: "Resources", to: "/" },
    { label: "Downloads", to: "/downloads" },
 ]
 
@@ -45,19 +45,15 @@ export const Navbar = () => {
          <Container maxWidth="lg">
             <StyledToolbar variant="dense" disableGutters>
                <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center", px: 0 }}>
-                  <Button color="primary" variant="text" size="small">
-                     <Typography sx={{ mr: 1 }} variant="button">
-                        Open sourced by
-                     </Typography>
-                     <Sitemark />
-                  </Button>
-                  <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                     {links.map((link) => (
-                        <Button key={link.label} variant="text" color="info" size="small">
-                           <Link href={link.to}>{link.label}</Link>
-                        </Button>
-                     ))}
-                  </Box>
+                  <Link href="/">
+                     <Button color="primary" variant="text" size="small">
+                        <Typography sx={{ mr: 1 }} variant="button">
+                           Developed by
+                        </Typography>
+                        <Sitemark />
+                     </Button>
+                  </Link>
+                  <Box sx={{ display: { xs: "none", md: "flex" } }}></Box>
                </Box>
                <Box
                   sx={{
@@ -66,12 +62,17 @@ export const Navbar = () => {
                      alignItems: "center",
                   }}
                >
-                  <Button color="primary" variant="text" size="small">
+                  {/* <Button color="primary" variant="text" size="small">
                      Sign in
                   </Button>
                   <Button color="primary" variant="contained" size="small">
                      Sign up
-                  </Button>
+                  </Button> */}
+                  {links.map((link) => (
+                     <Button key={link.label} variant="text" color="info" size="small">
+                        <Link href={link.to}>{link.label}</Link>
+                     </Button>
+                  ))}
                </Box>
                <Box sx={{ display: { sm: "flex", md: "none" } }}>
                   <IconButton aria-label="Menu button" onClick={toggleDrawer(true)}>
@@ -92,11 +93,13 @@ export const Navbar = () => {
                         </Box>
                         <Divider sx={{ my: 3 }} />
                         {links.map((link) => (
-                           <MenuItem key={link.label}>
-                              <Link href={link.to}>{link.label}</Link>
-                           </MenuItem>
+                           <Link key={link.to} href={link.to}>
+                              <MenuItem onClick={() => setOpen(false)} key={link.label}>
+                                 {link.label}
+                              </MenuItem>
+                           </Link>
                         ))}
-                        <MenuItem>
+                        {/* <MenuItem>
                            <Button color="primary" variant="contained" fullWidth>
                               Sign up
                            </Button>
@@ -105,7 +108,7 @@ export const Navbar = () => {
                            <Button color="primary" variant="outlined" fullWidth>
                               Sign in
                            </Button>
-                        </MenuItem>
+                        </MenuItem> */}
                      </Box>
                   </Drawer>
                </Box>

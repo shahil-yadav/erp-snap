@@ -1,11 +1,11 @@
+import { Navbar } from "@/components/navbar"
 import theme from "@/theme"
+import { Container } from "@mui/material"
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter"
 import { ThemeProvider } from "@mui/material/styles"
 import { Roboto } from "next/font/google"
 import * as React from "react"
 import "./globals.css"
-import { Navbar } from "@/components/navbar"
-import { Container } from "@mui/material"
 
 const font = Roboto({
    weight: ["300", "400", "500", "700"],
