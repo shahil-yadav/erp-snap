@@ -28,26 +28,30 @@ function getTimeDifference(data: string) {
 }
 
 async function fetchAllGithubReleases() {
-   const json = await fetch(process.env.VCS_RELEASE_URL).then((data) => data.json())
+   try {
+      const json = await fetch(process.env.VCS_RELEASE_URL).then((data) => data.json())
 
-   const isParsed = schema.safeParse(json)
-   if (!isParsed.success) {
-      throw new Error(isParsed.error.message)
+      const isParsed = schema.safeParse(json)
+      if (!isParsed.success) {
+         throw new Error(isParsed.error.message)
+      }
+      const releases = isParsed.data
+
+      const data: IRelease[] = releases.map((release, index) => ({
+         author: { name: release.author.login, image: release.author.avatar_url },
+         body: release.body,
+         downloadUrl: release.assets[0].browser_download_url,
+         id: release.id,
+         isLatest: index === 0,
+         name: release.name,
+         releasedDate: `${getTimeDifference(release.published_at)} weeks ago`,
+         version: release.tag_name,
+      }))
+
+      return data
+   } catch (error) {
+      throw new Error("Could not fetch releases, please check for env variables")
    }
-   const releases = isParsed.data
-
-   const data: IRelease[] = releases.map((release, index) => ({
-      author: { name: release.author.login, image: release.author.avatar_url },
-      body: release.body,
-      downloadUrl: release.assets[0].browser_download_url,
-      id: release.id,
-      isLatest: index === 0,
-      name: release.name,
-      releasedDate: `${getTimeDifference(release.published_at)} weeks ago`,
-      version: release.tag_name,
-   }))
-
-   return data
 }
 
 export interface IRelease {
