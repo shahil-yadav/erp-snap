@@ -6,6 +6,7 @@ import { ThemeProvider } from "@mui/material/styles"
 import { Roboto } from "next/font/google"
 import * as React from "react"
 import "./globals.css"
+import { Analytics } from "@vercel/analytics/react"
 
 const font = Roboto({
    weight: ["300", "400", "500", "700"],
@@ -26,6 +27,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             <AppRouterCacheProvider>
                <App>{props.children}</App>
             </AppRouterCacheProvider>
+            <Analytics />
          </body>
       </html>
    )

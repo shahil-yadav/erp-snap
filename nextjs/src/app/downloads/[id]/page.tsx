@@ -12,7 +12,7 @@ export async function generateStaticParams() {
    }))
 }
 
-const Page = async ({ params: { id } }: { params: { id: string } }) => {
+export default async function Page({ params: { id } }: { params: { id: string } }) {
    const release = await fetchReleaseById(id)
 
    if (release === undefined) {
@@ -21,5 +21,3 @@ const Page = async ({ params: { id } }: { params: { id: string } }) => {
 
    return <Release release={release} />
 }
-
-export default Page
