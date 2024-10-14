@@ -17,10 +17,10 @@ const config: CapacitorConfig = {
             androidScaleType: "CENTER_CROP",
         },
     },
-    server: {
-        cleartext: true,
-        url: "http://192.168.1.34:4321",
-    },
+    // server: {
+    //     cleartext: true,
+    //     url: "http://192.168.1.34:4321",
+    // },
     webDir: "dist",
 }
 

@@ -38,9 +38,11 @@ const daysSchema = z.object({
 
 function options() {
     return queryOptions({
+        queryKey: ["time-table"],
         queryFn:
-            queryStatusAtNight() === false
-                ? async () => {
+            queryStatusAtNight() === true
+                ? skipToken
+                : async () => {
                       const json = await fetchWebContent()
                       const { table, weeks } = convertScrapedData(json)
 
@@ -55,10 +57,7 @@ function options() {
                           days: isDaysParsed.data,
                           table: isTableParsed.data,
                       }
-                  }
-                : skipToken,
-
-        queryKey: ["time-table"],
+                  },
     })
 }
 
