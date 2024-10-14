@@ -16,32 +16,32 @@ PODS:
     - Capacitor
 
 DEPENDENCIES:
-  - "Capacitor (from `../../node_modules/.pnpm/@capacitor+ios@6.1.2_@capacitor+core@6.1.2/node_modules/@capacitor/ios`)"
-  - "CapacitorApp (from `../../node_modules/.pnpm/@capacitor+app@6.0.1_@capacitor+core@6.1.2/node_modules/@capacitor/app`)"
-  - "CapacitorCordova (from `../../node_modules/.pnpm/@capacitor+ios@6.1.2_@capacitor+core@6.1.2/node_modules/@capacitor/ios`)"
-  - "CapacitorDialog (from `../../node_modules/.pnpm/@capacitor+dialog@6.0.1_@capacitor+core@6.1.2/node_modules/@capacitor/dialog`)"
-  - "CapacitorNetwork (from `../../node_modules/.pnpm/@capacitor+network@6.0.2_@capacitor+core@6.1.2/node_modules/@capacitor/network`)"
-  - "CapacitorPluginSafeArea (from `../../node_modules/.pnpm/capacitor-plugin-safe-area@3.0.3_@capacitor+core@6.1.2/node_modules/capacitor-plugin-safe-area`)"
-  - "CapacitorSplashScreen (from `../../node_modules/.pnpm/@capacitor+splash-screen@6.0.2_@capacitor+core@6.1.2/node_modules/@capacitor/splash-screen`)"
-  - "CapacitorToast (from `../../node_modules/.pnpm/@capacitor+toast@6.0.2_@capacitor+core@6.1.2/node_modules/@capacitor/toast`)"
+  - "Capacitor (from `../../../node_modules/.pnpm/@capacitor+ios@6.1.2_@capacitor+core@6.1.2/node_modules/@capacitor/ios`)"
+  - "CapacitorApp (from `../../../node_modules/.pnpm/@capacitor+app@6.0.1_@capacitor+core@6.1.2/node_modules/@capacitor/app`)"
+  - "CapacitorCordova (from `../../../node_modules/.pnpm/@capacitor+ios@6.1.2_@capacitor+core@6.1.2/node_modules/@capacitor/ios`)"
+  - "CapacitorDialog (from `../../../node_modules/.pnpm/@capacitor+dialog@6.0.1_@capacitor+core@6.1.2/node_modules/@capacitor/dialog`)"
+  - "CapacitorNetwork (from `../../../node_modules/.pnpm/@capacitor+network@6.0.2_@capacitor+core@6.1.2/node_modules/@capacitor/network`)"
+  - "CapacitorPluginSafeArea (from `../../../node_modules/.pnpm/capacitor-plugin-safe-area@3.0.3_@capacitor+core@6.1.2/node_modules/capacitor-plugin-safe-area`)"
+  - "CapacitorSplashScreen (from `../../../node_modules/.pnpm/@capacitor+splash-screen@6.0.2_@capacitor+core@6.1.2/node_modules/@capacitor/splash-screen`)"
+  - "CapacitorToast (from `../../../node_modules/.pnpm/@capacitor+toast@6.0.2_@capacitor+core@6.1.2/node_modules/@capacitor/toast`)"
 
 EXTERNAL SOURCES:
   Capacitor:
-    :path: "../../node_modules/.pnpm/@capacitor+ios@6.1.2_@capacitor+core@6.1.2/node_modules/@capacitor/ios"
+    :path: "../../../node_modules/.pnpm/@capacitor+ios@6.1.2_@capacitor+core@6.1.2/node_modules/@capacitor/ios"
   CapacitorApp:
-    :path: "../../node_modules/.pnpm/@capacitor+app@6.0.1_@capacitor+core@6.1.2/node_modules/@capacitor/app"
+    :path: "../../../node_modules/.pnpm/@capacitor+app@6.0.1_@capacitor+core@6.1.2/node_modules/@capacitor/app"
   CapacitorCordova:
-    :path: "../../node_modules/.pnpm/@capacitor+ios@6.1.2_@capacitor+core@6.1.2/node_modules/@capacitor/ios"
+    :path: "../../../node_modules/.pnpm/@capacitor+ios@6.1.2_@capacitor+core@6.1.2/node_modules/@capacitor/ios"
   CapacitorDialog:
-    :path: "../../node_modules/.pnpm/@capacitor+dialog@6.0.1_@capacitor+core@6.1.2/node_modules/@capacitor/dialog"
+    :path: "../../../node_modules/.pnpm/@capacitor+dialog@6.0.1_@capacitor+core@6.1.2/node_modules/@capacitor/dialog"
   CapacitorNetwork:
-    :path: "../../node_modules/.pnpm/@capacitor+network@6.0.2_@capacitor+core@6.1.2/node_modules/@capacitor/network"
+    :path: "../../../node_modules/.pnpm/@capacitor+network@6.0.2_@capacitor+core@6.1.2/node_modules/@capacitor/network"
   CapacitorPluginSafeArea:
-    :path: "../../node_modules/.pnpm/capacitor-plugin-safe-area@3.0.3_@capacitor+core@6.1.2/node_modules/capacitor-plugin-safe-area"
+    :path: "../../../node_modules/.pnpm/capacitor-plugin-safe-area@3.0.3_@capacitor+core@6.1.2/node_modules/capacitor-plugin-safe-area"
   CapacitorSplashScreen:
-    :path: "../../node_modules/.pnpm/@capacitor+splash-screen@6.0.2_@capacitor+core@6.1.2/node_modules/@capacitor/splash-screen"
+    :path: "../../../node_modules/.pnpm/@capacitor+splash-screen@6.0.2_@capacitor+core@6.1.2/node_modules/@capacitor/splash-screen"
   CapacitorToast:
-    :path: "../../node_modules/.pnpm/@capacitor+toast@6.0.2_@capacitor+core@6.1.2/node_modules/@capacitor/toast"
+    :path: "../../../node_modules/.pnpm/@capacitor+toast@6.0.2_@capacitor+core@6.1.2/node_modules/@capacitor/toast"
 
 SPEC CHECKSUMS:
   Capacitor: 679f9673fdf30597493a6362a5d5bf233d46abc2
@@ -53,6 +53,6 @@ SPEC CHECKSUMS:
   CapacitorSplashScreen: 250df9ef8014fac5c7c1fd231f0f8b1d8f0b5624
   CapacitorToast: cfd82cd5afdc3f027ad4a8859f909ae4a327f3c3
 
-PODFILE CHECKSUM: a4484723719ee2c51afc743e3a0f8e80910d7cfe
+PODFILE CHECKSUM: 9f905a6a331be1cce3ed0666373475539d20db34
 
 COCOAPODS: 1.15.2

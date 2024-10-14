@@ -2,7 +2,7 @@ import { NetworkInfo } from "@/components/network-info"
 import { Information } from "@/routes/_auth/time-table/-components/information"
 import TimeTable from "@/routes/_auth/time-table/-components/table"
 import { options } from "@/routes/_auth/time-table/-query-options"
-import { useSuspenseQuery } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/_auth/time-table/")({
@@ -11,8 +11,7 @@ export const Route = createFileRoute("/_auth/time-table/")({
 })
 
 function Page() {
-    const { dataUpdatedAt, error, isError, isSuccess, isFetching, isPaused } =
-        useSuspenseQuery(options())
+    const { dataUpdatedAt, error, isError, isSuccess, isFetching, isPaused } = useQuery(options())
     return (
         <div className="space-y-5">
             <NetworkInfo

@@ -11,7 +11,6 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as TestImport } from './routes/test'
 import { Route as LoginImport } from './routes/login'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as AuthIndexImport } from './routes/_auth.index'
@@ -21,11 +20,6 @@ import { Route as AuthTimeTableIndexImport } from './routes/_auth/time-table/ind
 import { Route as AuthAttendanceIndexImport } from './routes/_auth/attendance/index'
 
 // Create/Update Routes
-
-const TestRoute = TestImport.update({
-  path: '/test',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const LoginRoute = LoginImport.update({
   path: '/login',
@@ -80,13 +74,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
-    '/test': {
-      id: '/test'
-      path: '/test'
-      fullPath: '/test'
-      preLoaderRoute: typeof TestImport
-      parentRoute: typeof rootRoute
-    }
     '/_auth/notifications': {
       id: '/_auth/notifications'
       path: '/notifications'
@@ -127,17 +114,97 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({
-  AuthRoute: AuthRoute.addChildren({
-    AuthNotificationsRoute,
-    AuthProfileRoute,
-    AuthIndexRoute,
-    AuthAttendanceIndexRoute,
-    AuthTimeTableIndexRoute,
-  }),
-  LoginRoute,
-  TestRoute,
-})
+interface AuthRouteChildren {
+  AuthNotificationsRoute: typeof AuthNotificationsRoute
+  AuthProfileRoute: typeof AuthProfileRoute
+  AuthIndexRoute: typeof AuthIndexRoute
+  AuthAttendanceIndexRoute: typeof AuthAttendanceIndexRoute
+  AuthTimeTableIndexRoute: typeof AuthTimeTableIndexRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthNotificationsRoute: AuthNotificationsRoute,
+  AuthProfileRoute: AuthProfileRoute,
+  AuthIndexRoute: AuthIndexRoute,
+  AuthAttendanceIndexRoute: AuthAttendanceIndexRoute,
+  AuthTimeTableIndexRoute: AuthTimeTableIndexRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
+export interface FileRoutesByFullPath {
+  '': typeof AuthRouteWithChildren
+  '/login': typeof LoginRoute
+  '/notifications': typeof AuthNotificationsRoute
+  '/profile': typeof AuthProfileRoute
+  '/': typeof AuthIndexRoute
+  '/attendance': typeof AuthAttendanceIndexRoute
+  '/time-table': typeof AuthTimeTableIndexRoute
+}
+
+export interface FileRoutesByTo {
+  '/login': typeof LoginRoute
+  '/notifications': typeof AuthNotificationsRoute
+  '/profile': typeof AuthProfileRoute
+  '/': typeof AuthIndexRoute
+  '/attendance': typeof AuthAttendanceIndexRoute
+  '/time-table': typeof AuthTimeTableIndexRoute
+}
+
+export interface FileRoutesById {
+  __root__: typeof rootRoute
+  '/_auth': typeof AuthRouteWithChildren
+  '/login': typeof LoginRoute
+  '/_auth/notifications': typeof AuthNotificationsRoute
+  '/_auth/profile': typeof AuthProfileRoute
+  '/_auth/': typeof AuthIndexRoute
+  '/_auth/attendance/': typeof AuthAttendanceIndexRoute
+  '/_auth/time-table/': typeof AuthTimeTableIndexRoute
+}
+
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | ''
+    | '/login'
+    | '/notifications'
+    | '/profile'
+    | '/'
+    | '/attendance'
+    | '/time-table'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/login'
+    | '/notifications'
+    | '/profile'
+    | '/'
+    | '/attendance'
+    | '/time-table'
+  id:
+    | '__root__'
+    | '/_auth'
+    | '/login'
+    | '/_auth/notifications'
+    | '/_auth/profile'
+    | '/_auth/'
+    | '/_auth/attendance/'
+    | '/_auth/time-table/'
+  fileRoutesById: FileRoutesById
+}
+
+export interface RootRouteChildren {
+  AuthRoute: typeof AuthRouteWithChildren
+  LoginRoute: typeof LoginRoute
+}
+
+const rootRouteChildren: RootRouteChildren = {
+  AuthRoute: AuthRouteWithChildren,
+  LoginRoute: LoginRoute,
+}
+
+export const routeTree = rootRoute
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* prettier-ignore-end */
 
@@ -148,8 +215,7 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/_auth",
-        "/login",
-        "/test"
+        "/login"
       ]
     },
     "/_auth": {
@@ -164,9 +230,6 @@ export const routeTree = rootRoute.addChildren({
     },
     "/login": {
       "filePath": "login.tsx"
-    },
-    "/test": {
-      "filePath": "test.tsx"
     },
     "/_auth/notifications": {
       "filePath": "_auth.notifications.tsx",
