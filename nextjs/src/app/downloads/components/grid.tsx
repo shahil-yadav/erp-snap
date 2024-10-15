@@ -4,11 +4,12 @@ import { Author } from "@/app/downloads/components/author"
 import { IRelease } from "@/lib/data/fetch-github-releases"
 import { Download } from "@mui/icons-material"
 import NavigateNextRoundedIcon from "@mui/icons-material/NavigateNextRounded"
-import { Button, Chip, Divider, styled, Typography } from "@mui/material"
+import { Button, Chip, Divider, styled, Typography, useTheme } from "@mui/material"
 import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid2"
 import Link from "next/link"
 import Markdown from "react-markdown"
+import clsx from "clsx"
 
 const WebkitOverflowSupportedTypography = styled(Typography)({
    display: "-webkit-box",
@@ -103,17 +104,13 @@ export function Release({ release }: { release: IRelease }) {
          </StyledTypography>
 
          <div>
-            <Markdown
-               components={{
-                  h1: (props) => {
-                     return <Typography variant="h1">{props.children}</Typography>
-                  },
-               }}
-               className="prose"
-            >
-               {release.body}
-            </Markdown>
+            <StyledMarkdown body={release.body} />
          </div>
       </Box>
    )
+}
+
+function StyledMarkdown(props: { body: string }) {
+   const isDarkMode = useTheme().palette.mode === "dark"
+   return <Markdown className={clsx(isDarkMode && "prose-invert", "prose")}>{props.body}</Markdown>
 }

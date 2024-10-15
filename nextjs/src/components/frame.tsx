@@ -1,5 +1,6 @@
 "use client"
 
+import SettingsIcon from "@mui/icons-material/Settings"
 import { getTheme } from "@/theme/getTheme"
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded"
 import ModeNightRoundedIcon from "@mui/icons-material/ModeNightRounded"
@@ -38,6 +39,8 @@ interface FrameProps {
    children: React.ReactNode
 }
 
+const isEnvironmentInProduction = () => process.env.NODE_ENV === "production"
+
 export function Frame({ showCustomTheme, toggleCustomTheme, mode, toggleColorMode, children }: FrameProps) {
    const theme = createTheme(getTheme(mode))
    const handleChange = (event: SelectChangeEvent) => {
@@ -46,55 +49,57 @@ export function Frame({ showCustomTheme, toggleCustomTheme, mode, toggleColorMod
    return (
       <ThemeProvider theme={theme}>
          <Box sx={{ height: "100dvh", display: "flex", flexDirection: "column" }}>
-            <StyledAppBar>
-               <Toolbar
-                  variant="dense"
-                  disableGutters
-                  sx={{
-                     display: "flex",
-                     justifyContent: "space-between",
-                     width: "100%",
-                     p: "8px 12px",
-                  }}
-               >
-                  <Button
-                     variant="text"
-                     size="small"
-                     aria-label="Back to templates"
-                     startIcon={<ArrowBackRoundedIcon />}
-                     component="a"
-                     href="/material-ui/getting-started/templates/"
-                     sx={{ display: { xs: "none", sm: "flex" } }}
+            {!isEnvironmentInProduction() && (
+               <StyledAppBar>
+                  <Toolbar
+                     variant="dense"
+                     disableGutters
+                     sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "100%",
+                        p: "8px 12px",
+                     }}
                   >
-                     Testing the themes
-                  </Button>
-                  <IconButton
-                     size="small"
-                     aria-label="Back to templates"
-                     component="a"
-                     href="/material-ui/getting-started/templates/"
-                     sx={{ display: { xs: "auto", sm: "none" } }}
-                  >
-                     <ArrowBackRoundedIcon />
-                  </IconButton>
-                  <Box sx={{ display: "flex", gap: 1 }}>
-                     <FormControl variant="outlined" sx={{ minWidth: 180 }}>
-                        <Select
-                           size="small"
-                           labelId="theme-select-label"
-                           id="theme-select"
-                           value={showCustomTheme ? "custom" : "material"}
-                           onChange={handleChange}
-                           label="Design Language"
-                        >
-                           <MenuItem value="custom">Custom Theme</MenuItem>
-                           <MenuItem value="material">Material Design 2</MenuItem>
-                        </Select>
-                     </FormControl>
-                     <ToggleColorMode data-screenshot="toggle-mode" mode={mode} toggleColorMode={toggleColorMode} />
-                  </Box>
-               </Toolbar>
-            </StyledAppBar>
+                     <Button
+                        variant="text"
+                        size="small"
+                        aria-label="Back to templates"
+                        startIcon={<SettingsIcon />}
+                        component="a"
+                        href="/"
+                        sx={{ display: { xs: "none", sm: "flex" } }}
+                     >
+                        Testing the themes
+                     </Button>
+                     <IconButton
+                        size="small"
+                        aria-label="Back to templates"
+                        component="a"
+                        href="/"
+                        sx={{ display: { xs: "auto", sm: "none" } }}
+                     >
+                        <SettingsIcon />
+                     </IconButton>
+                     <Box sx={{ display: "flex", gap: 1 }}>
+                        <FormControl variant="outlined" sx={{ minWidth: 180 }}>
+                           <Select
+                              size="small"
+                              labelId="theme-select-label"
+                              id="theme-select"
+                              value={showCustomTheme ? "custom" : "material"}
+                              onChange={handleChange}
+                              label="Design Language"
+                           >
+                              <MenuItem value="custom">Custom Theme</MenuItem>
+                              <MenuItem value="material">Material Design v6</MenuItem>
+                           </Select>
+                        </FormControl>
+                        <ToggleColorMode data-screenshot="toggle-mode" mode={mode} toggleColorMode={toggleColorMode} />
+                     </Box>
+                  </Toolbar>
+               </StyledAppBar>
+            )}
             <Box sx={{ flex: "1 1", overflow: "auto" }}>{children}</Box>
          </Box>
       </ThemeProvider>
