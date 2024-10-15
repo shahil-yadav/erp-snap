@@ -1,5 +1,6 @@
 import { GridReleases } from "@/app/downloads/components/grid"
 import { fetchAllGithubReleases } from "@/lib/data/fetch-github-releases"
+import { Box, CircularProgress } from "@mui/material"
 import Typography from "@mui/material/Typography"
 import { Metadata } from "next"
 

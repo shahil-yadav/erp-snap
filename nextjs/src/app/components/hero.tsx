@@ -6,7 +6,7 @@ import Image from "next/image"
 export function Hero({ release }: { release: IRelease }) {
    return (
       <div>
-         <Typography align="center" variant="h2" gutterBottom>
+         <Typography sx={{ fontSize: 70 }} align="center" variant="h1" gutterBottom>
             ERP SNAP
          </Typography>
          <div className="flex flex-col items-center">
