@@ -1,4 +1,3 @@
-import { error } from "console"
 import { z } from "zod"
 
 export const schema = z.array(
@@ -50,6 +49,7 @@ async function fetchAllGithubReleases() {
 
       return data
    } catch (error) {
+      console.log("🚀 ~ file: fetch-github-releases.ts:53 ~ fetchAllGithubReleases ~ error:", error)
       throw new Error("Could not fetch releases, please check for env variables")
    }
 }

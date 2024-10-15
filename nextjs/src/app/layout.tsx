@@ -1,18 +1,15 @@
-import { Navbar } from "@/components/navbar"
-import theme from "@/theme"
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Container } from "@mui/material"
+import { App } from "@/app/components/app"
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter"
-import { ThemeProvider } from "@mui/material/styles"
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Metadata } from "next"
-import { Roboto } from "next/font/google"
+import { Inter } from "next/font/google"
 import * as React from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
    title: {
-      template: "%s | Erp Snap",
+      template: "%s - Erp Snap",
       default: "Erp Snap",
    },
    description:
@@ -20,11 +17,11 @@ export const metadata: Metadata = {
    metadataBase: new URL("https://erp-snap.vercel.app"),
 }
 
-const font = Roboto({
+const font = Inter({
    weight: ["300", "400", "500", "700"],
    subsets: ["latin"],
    display: "swap",
-   variable: "--font-roboto",
+   variable: "--font-primary",
 })
 
 export default function RootLayout(props: { children: React.ReactNode }) {
@@ -41,6 +38,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
    )
 }
 
+/*
 const App = (props: { children: React.ReactNode }) => (
    <ThemeProvider theme={theme}>
       <Navbar />
@@ -49,3 +47,4 @@ const App = (props: { children: React.ReactNode }) => (
       </Container>
    </ThemeProvider>
 )
+*/

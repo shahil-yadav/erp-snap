@@ -97,22 +97,23 @@ export function Release({ release }: { release: IRelease }) {
          </div>
          <Author author={release.author} />
 
-         <StyledTypography
-            gutterBottom
-            variant="h6"
-            // onFocus={() => handleFocus(index)}
-            // onBlur={handleBlur}
-            tabIndex={0}
-            // className={focusedCardIndex === index ? "Mui-focused" : ""}
-         >
+         <StyledTypography gutterBottom variant="h6" tabIndex={0}>
             {release.name}
             <NavigateNextRoundedIcon className="arrow" sx={{ fontSize: "1rem" }} />
          </StyledTypography>
-         {/* <StyledTypography variant="body2" color="text.secondary" gutterBottom> */}
+
          <div>
-            <Markdown className="prose">{release.body}</Markdown>
+            <Markdown
+               components={{
+                  h1: (props) => {
+                     return <Typography variant="h1">{props.children}</Typography>
+                  },
+               }}
+               className="prose"
+            >
+               {release.body}
+            </Markdown>
          </div>
-         {/* </StyledTypography> */}
       </Box>
    )
 }
