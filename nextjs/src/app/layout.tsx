@@ -15,7 +15,8 @@ export const metadata: Metadata = {
       template: "%s | Erp Snap",
       default: "Erp Snap",
    },
-   // description: "",
+   description:
+      "Your academic hub, at your fingertips. Check your timetable, attendance, and profile with ease on our user-friendly ERP dashboard.",
    metadataBase: new URL("https://erp-snap.vercel.app"),
 }
 
