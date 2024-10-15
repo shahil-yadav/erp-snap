@@ -1,0 +1,9 @@
+{
+   "apps": [
+      {
+         "appId": "124472f1",
+         "root": "app",
+         "dependencyInstallCommand": "pnpm install"
+      }
+   ]
+}
