@@ -3,12 +3,14 @@
 import { Sitemark } from "@/icons/sitemark"
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded"
 import MenuIcon from "@mui/icons-material/Menu"
-import { alpha, AppBar, Container, styled, Toolbar, Typography } from "@mui/material"
+import ModeNightRoundedIcon from "@mui/icons-material/ModeNightRounded"
+import WbSunnyRoundedIcon from "@mui/icons-material/WbSunnyRounded"
+import { alpha, AppBar, Container, PaletteMode, styled, Toolbar, Typography } from "@mui/material"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import Divider from "@mui/material/Divider"
 import Drawer from "@mui/material/Drawer"
-import IconButton from "@mui/material/IconButton"
+import IconButton, { IconButtonProps } from "@mui/material/IconButton"
 import MenuItem from "@mui/material/MenuItem"
 import Link from "next/link"
 import React from "react"
@@ -33,7 +35,12 @@ const links = [
    { label: "Downloads", to: "/downloads" },
 ]
 
-export const Navbar = () => {
+interface ToggleColorModeProps extends IconButtonProps {
+   mode: PaletteMode
+   toggleColorMode: () => void
+}
+
+export const Navbar = (props: ToggleColorModeProps) => {
    const [open, setOpen] = React.useState(false)
 
    const toggleDrawer = (newOpen: boolean) => () => {
@@ -73,6 +80,19 @@ export const Navbar = () => {
                         <Link href={link.to}>{link.label}</Link>
                      </Button>
                   ))}
+
+                  <IconButton
+                     onClick={props.toggleColorMode}
+                     color="primary"
+                     size="small"
+                     aria-label="Theme toggle button"
+                  >
+                     {props.mode === "dark" ? (
+                        <WbSunnyRoundedIcon fontSize="small" />
+                     ) : (
+                        <ModeNightRoundedIcon fontSize="small" />
+                     )}
+                  </IconButton>
                </Box>
                <Box sx={{ display: { sm: "flex", md: "none" } }}>
                   <IconButton aria-label="Menu button" onClick={toggleDrawer(true)}>
@@ -99,6 +119,23 @@ export const Navbar = () => {
                               </MenuItem>
                            </Link>
                         ))}
+
+                        <Button
+                           fullWidth
+                           onClick={props.toggleColorMode}
+                           color="primary"
+                           size="small"
+                           aria-label="Theme toggle button"
+                           startIcon={
+                              props.mode === "dark" ? (
+                                 <WbSunnyRoundedIcon fontSize="small" />
+                              ) : (
+                                 <ModeNightRoundedIcon fontSize="small" />
+                              )
+                           }
+                        >
+                           {props.mode === "light" ? "Change to dark theme" : "Change to light theme"}
+                        </Button>
                         {/* <MenuItem>
                            <Button color="primary" variant="contained" fullWidth>
                               Sign up

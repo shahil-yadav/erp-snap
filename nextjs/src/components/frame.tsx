@@ -46,6 +46,7 @@ export function Frame({ showCustomTheme, toggleCustomTheme, mode, toggleColorMod
    const handleChange = (event: SelectChangeEvent) => {
       toggleCustomTheme(event.target.value === "custom")
    }
+
    return (
       <ThemeProvider theme={theme}>
          <Box sx={{ height: "100dvh", display: "flex", flexDirection: "column" }}>
