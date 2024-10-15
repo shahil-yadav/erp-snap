@@ -16,7 +16,7 @@ function useReleaseUpdate() {
                 title: `Please upgrade from ${appVersion} to ${data.latestVersion}`,
                 message: data.description,
             })
-            if (value === true) window.open(data.url)
+            if (value === true) window.open("https://erp-snap.vercel.app")
         }
 
         if (compareVersions(appVersion, data.latestVersion) === -1) showDialog()

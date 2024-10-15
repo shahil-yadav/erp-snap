@@ -8,7 +8,7 @@ import pluginQuery from "@tanstack/eslint-plugin-query"
 export default [
     ...pluginQuery.configs["flat/recommended"],
     ...tseslint.config(
-        { ignores: ["dist"] },
+        { ignores: ["dist", "src/components/ui"] },
         {
             extends: [js.configs.recommended, ...tseslint.configs.recommended],
             files: ["**/*.{ts,tsx}"],

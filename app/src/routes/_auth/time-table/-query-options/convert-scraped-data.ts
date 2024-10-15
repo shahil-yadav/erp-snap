@@ -20,7 +20,7 @@ const weekSchema = z.array(
     z.enum(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]),
 )
 
-const timingsSchema = z.array(z.string()).length(8).nonempty()
+const timingsSchema = z.array(z.string()).nonempty()
 
 export const convertScrapedData = (data: {
     time: string[]

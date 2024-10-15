@@ -1,8 +1,7 @@
 import { SignIn } from "@/components/auth/sign-in"
 import { SignOut } from "@/components/auth/sign-out"
 import { ReactImage } from "@/components/image"
-import { Body, Footer, Layout, Navbar } from "@/components/layout"
-import { Watermark } from "@/components/watermark"
+import { Body, Layout, Navbar } from "@/components/layout"
 import { Link, createFileRoute, useRouter } from "@tanstack/react-router"
 import { useLayoutEffect } from "react"
 import { z } from "zod"
@@ -48,9 +47,9 @@ function Signin() {
                 </div>
             </Body>
 
-            <Footer>
+            {/* <Footer>
                 <Watermark />
-            </Footer>
+            </Footer> */}
         </Layout>
     )
 
