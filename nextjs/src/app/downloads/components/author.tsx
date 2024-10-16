@@ -17,9 +17,9 @@ export function Author({ author }: { author: IRelease["author"] }) {
             <Typography sx={{ fontWeight: "700" }} variant="caption">
                {author.name}
             </Typography>
-            <Typography variant="caption">released this 3 weeks ago</Typography>
+            {/* <Typography variant="caption">released this 3 weeks ago</Typography> */}
          </Box>
-         <Typography variant="caption">July 14, 2021</Typography>
+         {/* <Typography variant="caption">July 14, 2021</Typography> */}
       </Box>
    )
 }
