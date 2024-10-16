@@ -10,7 +10,7 @@ export function Hero({ release }: { release: IRelease }) {
             ERP SNAP
          </Typography>
          <div className="flex flex-col items-center">
-            <DownloadButton downloadUrl={release.downloadUrl} />
+            <DownloadButton version={release.version} downloadUrl={release.downloadUrl} />
             <Image className="md:hidden" alt="hero" src="/hero-mobile.png" width={300} height={700} />
          </div>
          <Image className="hidden md:block" alt="hero" src="/hero.png" width={1920} height={1080} />
