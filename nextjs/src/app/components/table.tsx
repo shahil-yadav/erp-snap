@@ -1,5 +1,5 @@
 import { fetchAllGithubReleases } from "@/lib/data/fetch-github-releases"
-import { Download } from "@mui/icons-material"
+import InfoIcon from "@mui/icons-material/Info"
 import { Chip, IconButton, Typography } from "@mui/material"
 import Paper from "@mui/material/Paper"
 import Table from "@mui/material/Table"
@@ -39,7 +39,7 @@ export async function GithubReleasesTable() {
                         <TableCell align="right">
                            <Link href={`downloads/${row.id}`}>
                               <IconButton>
-                                 <Download />
+                                 <InfoIcon />
                               </IconButton>
                            </Link>
                         </TableCell>
