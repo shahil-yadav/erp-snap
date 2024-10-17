@@ -1,7 +1,8 @@
 "use client"
 
-import { Frame } from "@/components/frame"
-import { Navbar } from "@/components/navbar"
+import { Footer } from "@/app/components/footer"
+import { Frame } from "@/app/components/frame"
+import { Navbar } from "@/app/components/navbar"
 import { getTheme } from "@/theme/getTheme"
 import { Container, createTheme, CssBaseline, PaletteMode, ThemeProvider } from "@mui/material"
 import React from "react"
@@ -47,8 +48,8 @@ export function App(props: { children: React.ReactNode }) {
             <Navbar mode={mode} toggleColorMode={toggleColorMode} />
             <Container maxWidth="lg" component="main" sx={{ display: "flex", flexDirection: "column", my: 16, gap: 4 }}>
                {props.children}
+               <Footer />
             </Container>
-            {/* <Footer /> */}
          </ThemeProvider>
       </Frame>
    )

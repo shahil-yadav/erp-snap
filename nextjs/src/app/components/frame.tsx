@@ -1,9 +1,8 @@
 "use client"
 
-import SettingsIcon from "@mui/icons-material/Settings"
 import { getTheme } from "@/theme/getTheme"
-import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded"
 import ModeNightRoundedIcon from "@mui/icons-material/ModeNightRounded"
+import SettingsIcon from "@mui/icons-material/Settings"
 import WbSunnyRoundedIcon from "@mui/icons-material/WbSunnyRounded"
 import AppBar from "@mui/material/AppBar"
 import Box from "@mui/material/Box"

@@ -60,11 +60,19 @@ export function GridReleases({ releases }: { releases: IRelease[] }) {
    return (
       <Grid container spacing={8} columns={12} sx={{ my: 4 }}>
          {releases.map((release, index) => (
-            <Grid key={index} size={{ xs: 12, md: 6 }}>
+            <Grid
+               sx={(theme) => ({
+                  "--Grid-borderWidth": "1px",
+                  borderTop: `${theme.palette.divider} solid`,
+                  pt: 2,
+               })}
+               key={index}
+               size={{ xs: 12, md: 6 }}
+            >
                <Release release={release} />
-               <Box sx={{ my: 2 }}>
+               {/* <Box sx={{ my: 2 }}>
                   <Divider />
-               </Box>
+               </Box> */}
             </Grid>
          ))}
       </Grid>
