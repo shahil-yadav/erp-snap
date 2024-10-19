@@ -38,3 +38,13 @@ export default function RootLayout(props: { children: React.ReactNode }) {
    )
 }
 
+/*
+const App = (props: { children: React.ReactNode }) => (
+   <ThemeProvider theme={theme}>
+      <Navbar />
+      <Container maxWidth="lg" component="main" sx={{ display: "flex", flexDirection: "column", my: 16, gap: 4 }}>
+         {props.children}
+      </Container>
+   </ThemeProvider>
+)
+*/

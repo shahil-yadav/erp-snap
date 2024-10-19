@@ -44,9 +44,9 @@ export function App(props: { children: React.ReactNode }) {
          toggleColorMode={toggleColorMode}
       >
          <ThemeProvider theme={showCustomTheme ? customTheme : defaultTheme}>
-            <CssBaseline enableColorScheme  />
+            <CssBaseline enableColorScheme />
             <Navbar mode={mode} toggleColorMode={toggleColorMode} />
-            <Container maxWidth="lg" component="main" sx={{ display: "flex", flexDirection: "column", my:10, gap: 4 }}>
+            <Container maxWidth="lg" component="main" sx={{ display: "flex", flexDirection: "column", my: 16, gap: 4 }}>
                {props.children}
                <Footer />
             </Container>
