@@ -121,7 +121,9 @@ export const Navbar = (props: ToggleColorModeProps) => {
                            </Link>
                         ))}
 
-                        <FormbricksReportElement />
+                        <div role="button" onClick={() => setOpen(false)}>
+                           <FormbricksReportElement />
+                        </div>
 
                         <Button
                            fullWidth
