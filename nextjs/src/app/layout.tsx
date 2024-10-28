@@ -1,11 +1,12 @@
 import { App } from "@/app/components/app"
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter"
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Metadata } from "next"
 import { Inter } from "next/font/google"
 import * as React from "react"
 import "./globals.css"
+import FormbricksProvider from "./formbricks";
 
 export const metadata: Metadata = {
    title: {
@@ -24,9 +25,10 @@ const font = Inter({
    variable: "--font-primary",
 })
 
-export default function RootLayout(props: { children: React.ReactNode }) {
+export default function RootLayout(props: Readonly<{ children: React.ReactNode }>) {
    return (
       <html lang="en">
+         <FormbricksProvider />
          <body className={font.variable}>
             <AppRouterCacheProvider>
                <App>{props.children}</App>
@@ -37,14 +39,3 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       </html>
    )
 }
-
-/*
-const App = (props: { children: React.ReactNode }) => (
-   <ThemeProvider theme={theme}>
-      <Navbar />
-      <Container maxWidth="lg" component="main" sx={{ display: "flex", flexDirection: "column", my: 16, gap: 4 }}>
-         {props.children}
-      </Container>
-   </ThemeProvider>
-)
-*/
