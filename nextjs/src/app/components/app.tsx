@@ -7,7 +7,7 @@ import { getTheme } from "@/theme/getTheme"
 import { Container, createTheme, CssBaseline, PaletteMode, ThemeProvider } from "@mui/material"
 import React from "react"
 
-export function App(props: { children: React.ReactNode }) {
+export function App(props: Readonly<{ children: React.ReactNode }>) {
    const [mode, setMode] = React.useState<PaletteMode>("light")
    const [showCustomTheme, setShowCustomTheme] = React.useState(true)
    const customTheme = createTheme(getTheme(mode))

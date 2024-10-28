@@ -1,6 +1,8 @@
 "use client"
 
 import { Sitemark } from "@/icons/sitemark"
+import { FormbricksReportElement } from "@/lib/formbricks/report-btn";
+import formbricks from "@formbricks/js";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded"
 import MenuIcon from "@mui/icons-material/Menu"
 import ModeNightRoundedIcon from "@mui/icons-material/ModeNightRounded"
@@ -14,6 +16,7 @@ import IconButton, { IconButtonProps } from "@mui/material/IconButton"
 import MenuItem from "@mui/material/MenuItem"
 import Link from "next/link"
 import React from "react"
+
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
    display: "flex",
@@ -31,7 +34,6 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 
 const links = [
    { label: "Home", to: "/" },
-   // { label: "Resources", to: "/" },
    { label: "Downloads", to: "/downloads" },
 ]
 
@@ -39,6 +41,8 @@ interface ToggleColorModeProps extends IconButtonProps {
    mode: PaletteMode
    toggleColorMode: () => void
 }
+
+const handleFormbrickReportEvent = () => formbricks.track('report-btn-clicked')
 
 export const Navbar = (props: ToggleColorModeProps) => {
    const [open, setOpen] = React.useState(false)
@@ -69,17 +73,14 @@ export const Navbar = (props: ToggleColorModeProps) => {
                      alignItems: "center",
                   }}
                >
-                  {/* <Button color="primary" variant="text" size="small">
-                     Sign in
-                  </Button>
-                  <Button color="primary" variant="contained" size="small">
-                     Sign up
-                  </Button> */}
                   {links.map((link) => (
                      <Button key={link.label} variant="text" color="info" size="small">
                         <Link href={link.to}>{link.label}</Link>
                      </Button>
                   ))}
+                  
+                  <FormbricksReportElement isButton />
+                  
 
                   <IconButton
                      onClick={props.toggleColorMode}
@@ -119,6 +120,8 @@ export const Navbar = (props: ToggleColorModeProps) => {
                               </MenuItem>
                            </Link>
                         ))}
+
+                        <FormbricksReportElement />
 
                         <Button
                            fullWidth
