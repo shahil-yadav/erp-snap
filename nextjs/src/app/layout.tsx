@@ -28,7 +28,9 @@ const font = Inter({
 export default function RootLayout(props: Readonly<{ children: React.ReactNode }>) {
    return (
       <html lang="en">
-         <FormbricksProvider />
+         <React.Suspense>
+            <FormbricksProvider />
+         </React.Suspense>
          <body className={font.variable}>
             <AppRouterCacheProvider>
                <App>{props.children}</App>
