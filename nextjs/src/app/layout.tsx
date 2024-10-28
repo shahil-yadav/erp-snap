@@ -6,7 +6,7 @@ import { Metadata } from "next"
 import { Inter } from "next/font/google"
 import * as React from "react"
 import "./globals.css"
-import FormbricksProvider from "./formbricks";
+import FormbricksProvider from "../lib/formbricks/formbricks-provider";
 
 export const metadata: Metadata = {
    title: {

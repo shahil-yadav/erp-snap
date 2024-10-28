@@ -1,6 +1,7 @@
 "use client"
 
 import { Sitemark } from "@/icons/sitemark"
+import { FormbricksReportElement } from "@/lib/formbricks/report-btn";
 import formbricks from "@formbricks/js";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded"
 import MenuIcon from "@mui/icons-material/Menu"
@@ -77,7 +78,9 @@ export const Navbar = (props: ToggleColorModeProps) => {
                         <Link href={link.to}>{link.label}</Link>
                      </Button>
                   ))}
-                  <Button onClick={handleFormbrickReportEvent} variant="text">Report</Button>
+                  
+                  <FormbricksReportElement isButton />
+                  
 
                   <IconButton
                      onClick={props.toggleColorMode}
@@ -117,9 +120,8 @@ export const Navbar = (props: ToggleColorModeProps) => {
                               </MenuItem>
                            </Link>
                         ))}
-                        <MenuItem onClick={handleFormbrickReportEvent}>
-                           Report
-                        </MenuItem>
+
+                        <FormbricksReportElement />
 
                         <Button
                            fullWidth
