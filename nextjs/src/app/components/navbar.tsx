@@ -52,7 +52,7 @@ export const Navbar = (props: ToggleColorModeProps) => {
    }
 
    return (
-      <AppBar position="fixed" sx={{ boxShadow: 0, bgcolor: "transparent", backgroundImage: "none", mt: 5 }}>
+      <AppBar position="sticky" sx={{ boxShadow: 0, bgcolor: "transparent", my: 5, backgroundImage: "none" }}>
          <Container maxWidth="lg">
             <StyledToolbar variant="dense" disableGutters>
                <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center", px: 0 }}>
