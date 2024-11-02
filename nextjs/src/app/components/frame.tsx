@@ -48,7 +48,7 @@ export function Frame({ showCustomTheme, toggleCustomTheme, mode, toggleColorMod
 
    return (
       <ThemeProvider theme={theme}>
-         <Box sx={{ height: "100dvh", display: "flex", flexDirection: "column" }}>
+         <Box sx={{ height: "100svh", display: "flex", flexDirection: "column" }}>
             {!isEnvironmentInProduction() && (
                <StyledAppBar>
                   <Toolbar
@@ -100,7 +100,7 @@ export function Frame({ showCustomTheme, toggleCustomTheme, mode, toggleColorMod
                   </Toolbar>
                </StyledAppBar>
             )}
-            <Box sx={{ flex: "1 1", overflow: "auto" }}>{children}</Box>
+            {children}
          </Box>
       </ThemeProvider>
    )

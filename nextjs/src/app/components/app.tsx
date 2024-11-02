@@ -4,7 +4,7 @@ import { Footer } from "@/app/components/footer"
 import { Frame } from "@/app/components/frame"
 import { Navbar } from "@/app/components/navbar"
 import { getTheme } from "@/theme/getTheme"
-import { Container, createTheme, CssBaseline, PaletteMode, ThemeProvider } from "@mui/material"
+import { Box, Container, createTheme, CssBaseline, PaletteMode, ThemeProvider } from "@mui/material"
 import React from "react"
 
 export function App(props: Readonly<{ children: React.ReactNode }>) {
@@ -46,10 +46,12 @@ export function App(props: Readonly<{ children: React.ReactNode }>) {
          <ThemeProvider theme={showCustomTheme ? customTheme : defaultTheme}>
             <CssBaseline enableColorScheme />
             <Navbar mode={mode} toggleColorMode={toggleColorMode} />
-            <Container maxWidth="lg" component="main" sx={{ display: "flex", flexDirection: "column", gap: 4, mb: 10 }}>
-               {props.children}
-               <Footer />
-            </Container>
+            <Box sx={{ flex: "1 1", overflow: "auto" }}>
+               <Container maxWidth="lg" component="main" sx={{ display: "flex", flexDirection: "column", gap: 4, mb: 10 }}>
+                  {props.children}
+                  <Footer />
+               </Container>
+            </Box>
          </ThemeProvider>
       </Frame>
    )
