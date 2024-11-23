@@ -15,22 +15,22 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart"
 
-function Chart(props: { oaa: number; present: number; absent: number }) {
-    const chartConfig = {
-        present: {
-            label: "Present",
-            color: "hsl(var(--chart-5))",
-        },
-        oaa: {
-            label: "OAA",
-            color: "hsl(var(--chart-3))",
-        },
-        absent: {
-            label: "Absent",
-            color: "hsl(var(--chart-2))",
-        },
-    } satisfies ChartConfig
+const chartConfig = {
+    present: {
+        label: "Present",
+        color: "hsl(var(--chart-5))",
+    },
+    oaa: {
+        label: "OAA",
+        color: "hsl(var(--chart-3))",
+    },
+    absent: {
+        label: "Absent",
+        color: "hsl(var(--chart-2))",
+    },
+} satisfies ChartConfig
 
+function Chart(props: { oaa: number; present: number; absent: number }) {
     const chartData = [{ present: props.present, absent: props.absent, oaa: props.oaa }]
     const perecentage = (
         ((props.present + props.oaa) / (props.present + props.oaa + props.absent)) *
@@ -109,8 +109,8 @@ function Chart(props: { oaa: number; present: number; absent: number }) {
                     </RadialBarChart>
                 </ChartContainer>
             </CardContent>
-            <CardFooter className="justify-between text-sm">
-                <div className="flex gap-4 text-xs">
+            <CardFooter className="flex-col items-start gap-2 text-sm text-xs">
+                <div className="flex gap-4">
                     <div className="flex items-center gap-2">
                         <div
                             className="aspect-square h-4 w-4 rounded-full"
@@ -133,7 +133,6 @@ function Chart(props: { oaa: number; present: number; absent: number }) {
                         <span>Absent ~ {props.absent}</span>
                     </div>
                 </div>
-                {/* <CircleArrowOutUpLeft className="h-4 w-4 self-end" /> */}
             </CardFooter>
         </Card>
     )

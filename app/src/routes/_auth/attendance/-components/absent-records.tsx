@@ -1,7 +1,7 @@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { animated, useSpring } from "@react-spring/web"
 
-function AbsentRecords({
+export function AbsentRecords({
     record,
 }: {
     record: {
@@ -15,27 +15,27 @@ function AbsentRecords({
     })
     return (
         <div>
-            <h2 className="text-right text-2xl font-semibold">Absent Records</h2>
-            {record.map(({ date, absent }) => (
-                <div className="space-y-2">
-                    <p className="">{date}</p>
-                    <ScrollArea className="whitespace-nowrap rounded-md">
-                        <div className="flex w-max gap-2 pb-6">
-                            {absent.map((period) => (
-                                <animated.div
-                                    style={{ ...springs }}
-                                    className="flex shrink-0 items-center justify-center rounded-md bg-rose-500 p-2 text-lg text-white dark:bg-rose-700"
-                                >
-                                    ABS ~ {period}
-                                </animated.div>
-                            ))}
-                        </div>
-                        <ScrollBar orientation="horizontal" />
-                    </ScrollArea>
-                </div>
-            ))}
+            <h2 className="mb-3 text-right text-2xl font-semibold">Absent Records</h2>
+            <div className="space-y-6">
+                {record.map(({ date, absent }) => (
+                    <div className="flex items-center gap-4">
+                        <p className="text-nowrap">{date}</p>
+                        <ScrollArea className="whitespace-nowrap rounded-md">
+                            <div className="flex w-max gap-2">
+                                {absent.map((period) => (
+                                    <animated.div
+                                        style={{ ...springs }}
+                                        className="flex size-9 shrink-0 items-center justify-center rounded-full bg-red-500 p-2 text-lg text-white"
+                                    >
+                                        {period}
+                                    </animated.div>
+                                ))}
+                            </div>
+                            <ScrollBar orientation="horizontal" />
+                        </ScrollArea>
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }
-
-export { AbsentRecords as AbsentRecord }

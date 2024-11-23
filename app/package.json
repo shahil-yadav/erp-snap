@@ -1,5 +1,5 @@
 {
-    "name": "erp-snap",
+    "name": "app",
     "version": "1.0.0",
     "type": "module",
     "scripts": {
@@ -10,7 +10,7 @@
         "dev:build": "NODE_ENV=development vite build",
         "dev:ios": "npx cap sync && npx cap open ios",
         "dev": "vite --host --port 4321",
-        "lint:all": "eslint --fix .",
+        "lint": "eslint --fix .",
         "preview": "vite preview"
     },
     "dependencies": {
@@ -28,6 +28,7 @@
         "@radix-ui/react-scroll-area": "^1.1.0",
         "@radix-ui/react-separator": "^1.1.0",
         "@radix-ui/react-slot": "^1.1.0",
+        "@radix-ui/react-tabs": "^1.1.1",
         "@radix-ui/react-toast": "^1.2.1",
         "@react-spring/web": "^9.7.4",
         "@tanstack/query-sync-storage-persister": "^5.53.1",
