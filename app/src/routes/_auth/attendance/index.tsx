@@ -1,9 +1,10 @@
 import { NetworkInfo } from "@/components/network-info"
-import { AbsentRecord } from "@/routes/_auth/attendance/-components/absent-records"
 import { Chart } from "@/routes/_auth/attendance/-components/chart"
-import { options } from "@/routes/_auth/attendance/-query-options"
+import { options } from "@/routes/_auth/attendance/-query"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
+import { AbsentRecords } from "@/routes/_auth/attendance/-components/absent-records.tsx"
+import { Bunk } from "@/routes/_auth/attendance/-components/bunk.tsx"
 
 export const Route = createFileRoute("/_auth/attendance/")({
     component: Attendance,
@@ -35,13 +36,15 @@ function Attendance() {
                 isSuccess={isSuccess}
                 isPaused={isPaused}
             />
+
             <div className="space-y-8">
                 {oaa + present + absent === 0 ? (
                     <p>The session is not started yet</p>
                 ) : (
                     <Chart oaa={oaa} present={present} absent={absent} />
                 )}
-                {tableDetails.length > 0 && <AbsentRecord record={tableDetails} />}
+                <Bunk />
+                {tableDetails.length > 0 && <AbsentRecords record={tableDetails} />}
             </div>
         </main>
     )

@@ -19,7 +19,7 @@ const config: CapacitorConfig = {
     },
     // server: {
     //     cleartext: true,
-    //     url: "http://192.168.1.34:4321",
+    //     url: "http://192.168.1.40:4321",
     // },
     webDir: "dist",
 }
